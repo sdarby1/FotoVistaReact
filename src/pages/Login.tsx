@@ -96,7 +96,7 @@ const Login = () => {
 
            <button disabled={isSubmitting} type="submit" className="submit-btn">Login</button>
 
-           <p>Du hast bereits einen Account? <Link className="link-btn" to="/register">Registrieren</Link></p>
+           <p>Du hast noch keinen Account? <Link className="link-btn" to="/register">Registrieren</Link></p>
         </form>
         <DevTool control= { control } />
     </div>

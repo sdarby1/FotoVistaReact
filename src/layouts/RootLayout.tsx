@@ -32,7 +32,9 @@ const RootLayout = () => {
                         <p>{auth.username}</p> 
                         <button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>
                     </div>
-                    ) : ( <Link to="/login" className="sign-in-btn">Einloggen</Link> )
+                    ) : ( <div className="user-container">
+                        <Link to="/login" className="sign-in-btn">Einloggen</Link> 
+                    </div> )
                 }
             </li>
         </header>
