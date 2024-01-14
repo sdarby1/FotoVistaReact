@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
+import { Link } from 'react-router-dom'
 
 type FormValues = {
     email: string,
@@ -13,6 +14,7 @@ const Login = () => {
   const onSubmit = async () => {
     await new Promise((resolve) => setTimeout(resolve, 2000));
     console.log("Formular submitted!");
+    throw new Error("Formular submitted!");
   }
 
   const onError = () => {
@@ -52,6 +54,8 @@ const Login = () => {
            </div>
 
            <button disabled={isSubmitting} type="submit" className="submit-btn">Login</button>
+
+           <p>Du hast bereits einen Account? <Link to="/register">Registrieren</Link></p>
         </form>
         <DevTool control= { control } />
     </>

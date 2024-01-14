@@ -6,3 +6,34 @@ body {
 .error {
   color: #ac0000;
 }
+
+header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+header nav ul {
+  display: flex;
+  gap: 20px;
+  padding: 0px;
+}
+
+::marker {
+  content: " ";
+}
+
+.header-nav-btn {
+  text-decoration: none;
+}
+
+.sign-in-btn {
+  padding: 8px 10px;
+  border: 2px solid #00AC1D;
+  border-radius: 10px;
+  color: #00AC1D;
+  text-decoration: none;
+  font-size: 20px;
+  transition: 0.4s;
+}
