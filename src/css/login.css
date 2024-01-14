@@ -1,3 +1,10 @@
+.form-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .login-form {
     display: flex;
     flex-direction: column;
@@ -5,6 +12,10 @@
     justify-content: center;
     gap: 20px;
     width: fit-content;
+    margin-top: 50px;
+    padding: 80px 100px;
+    background-color: rgba(128, 128, 128, 0.162);
+    border-radius: 20px;
 }
 
 .form-group {
@@ -15,12 +26,38 @@
 }
 
 .form-group input {
+    border: none;
+    background-color: transparent;
+    border-bottom: 2px solid #9B9B9B;
+    color: white;
+    padding-top: 10px;
+    padding-bottom: 2px;
     font-size: 20px;
 }
 
+input:focus {
+    outline: none;
+}
+
+
+.form-group label {
+    color: #9B9B9B;
+}
 
 .submit-btn {
-    width: 100%;
-    cursor: pointer;
+    border: 2px solid #1028FF;
+    color: #1028FF;
+    background-color: transparent;
+    text-align: center;
     font-size: 20px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.4s;
+}
+
+.submit-btn:hover {
+    background-color: #1028FF;
+    color: white;
 }

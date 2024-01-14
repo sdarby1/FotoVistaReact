@@ -1,10 +1,16 @@
 body {
-  padding: 20px;
-  font-family: sans-serif;
+  background: linear-gradient(180deg, #0B0C0D 10%, #353a40 100%);
+  background-repeat: no-repeat ;
+  /* background-color: black; */
+  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0px;
+  min-height: 100vh;
+  padding: 10px 50px;
 }
 
 .error {
-  color: #ac0000;
+  color: #e60000;
 }
 
 header {
@@ -25,8 +31,40 @@ header nav ul {
 }
 
 .header-nav-btn {
+  color: rgb(255, 255, 255);
   text-decoration: none;
+  font-size: 20px;
+  position: relative;
 }
+
+.header-nav-btn::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+  transition: all 0.4s;
+}
+
+
+.header-nav-btn:hover::before {
+  width: 100%;
+}
+
+.active {
+  position: relative;
+}
+
+.active::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color: rgb(255, 255, 255);
+}
+
 
 .sign-in-btn {
   padding: 8px 10px;
@@ -36,4 +74,36 @@ header nav ul {
   text-decoration: none;
   font-size: 20px;
   transition: 0.4s;
+}
+
+.sign-in-btn:hover {
+  background-color: #00AC1D;
+  color: white;
+}
+
+.sign-out-btn {
+  padding: 8px 10px;
+  border: 2px solid #ac0000;
+  border-radius: 10px;
+  color: #ac0000;
+  background-color: transparent;
+  text-decoration: none;
+  font-size: 20px;
+  margin-left: 20px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.sign-out-btn:hover {
+  background-color: #ac0000;
+  color: white;
+}
+
+.user-container {
+  display: flex;
+  gap: 10px;
+}
+
+.link-btn {
+  color: #1028FF;
 }

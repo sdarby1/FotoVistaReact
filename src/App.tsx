@@ -9,6 +9,8 @@ import Register from "./pages/Register";
 import NotFound from "./pages/NotFound";
 
 import RootError from "./errors/RootError";
+import Profile from "./pages/profile";
+import PrivateLayout from "./layouts/PrivateLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +24,10 @@ const router = createBrowserRouter(
         <Route path="/discover" element={<Discover />} />
 
         <Route path="/register" element={<Register />} />
+
+        <Route element={<PrivateLayout />}>
+          <Route path="/profile" element={<Profile />} />
+        </Route>
 
         <Route path="*" element={<NotFound />}/>
 
