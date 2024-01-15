@@ -115,6 +115,18 @@ const Register = () => {
             <p className="error">{errors.password?.message}</p>
            </div>
 
+           <div className="form-group">
+            <label htmlFor="password">Passwort wiederholen</label> 
+            <input type="password" aria-invalid={errors.password ? "true" : "false"}
+            {...register("password", {
+                 required: {
+                    value: true,
+                    message: "Dieses Feld ist ein Pflichtfeld"
+                }
+            })}/>
+            <p className="error">{errors.password?.message}</p>
+           </div>
+
            <button disabled={isSubmitting} type="submit" className="submit-btn">Login</button>
 
            <p>Du hast bereits einen Account? <Link className="link-btn" to="/login">Einloggen</Link></p>

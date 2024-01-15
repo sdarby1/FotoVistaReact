@@ -21,6 +21,7 @@ header {
 
 header nav ul {
   display: flex;
+  justify-content: center;
   gap: 20px;
   padding: 0px;
 }
@@ -101,7 +102,7 @@ header nav ul {
 .user-container {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   gap: 10px;
 }
 

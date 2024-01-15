@@ -3,63 +3,62 @@ import { useForm } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from "../context/AuthProvider"
+import http from "../utils/http"
 
 
 type FormValues = {
-    email: string,
-    password: string,
-}
+    email: string;
+    password: string;
+};
 
 const Login = () => {
-  const { auth, setAuth } = useContext(AuthContext)
-  const navigate = useNavigate()
-  const { state } = useLocation() 
+    const { auth, setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
+    const { state } = useLocation();
 
-  const form = useForm<FormValues>();
-  const { register, control, handleSubmit, formState: { errors, isSubmitting } } = form;
+    const form = useForm<FormValues>();
+    const {
+        register,
+        control,
+        handleSubmit,
+        formState: { errors, isSubmitting },
+        setError
+    } = form;
 
-  console.log(auth);  
+    // Wenn Nutzer von einer Private Route kam
+    // dann wollen wir dahin nach Login zurück
+    // Wenn er direkt auf Login klickte, schicken wir
+    // den Nutzer an die Homepage
+    const { from = '/' } = state || {};
 
-  const  { from = "/" } = state || {}
+    // Diese Funktion wird nur ausgeführt, wenn alle Felder
+    // korrekt validiert sind
+    const onSubmit = async (data: FormValues) => {
+        // Logik für den Login
+        try {
+            await http.get('/sanctum/csrf-cookie');
+            const response = await http.post('/auth/login', data);
+            const userData = response.data;
 
-  const login = {
-    id: 1,
-    username: "sienderby",
-    email: "sean.darby@outlook.de",
-    password: "Passwort",
-    role: "user"
-  };
+            setAuth({ ...userData, role: userData.role ?? 'user' });
+            navigate(from);
+        } catch (exception: any) {
+            const errors = exception.response.data.errors;
 
-  const onSubmit = async (data: FormValues) => {
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    console.log("Formular submitted!");
-    if(data.email === login.email && data.password === login.password) {
-        setAuth((prevAuth) => {
-            let role = null
-
-            if(login.role === "admin") {
-                role = login.role as "admin";
+            for (let [fieldName, errorList] of Object.entries(errors)) {
+                type Field = 'email' | 'password' | 'root';
+                const errors = (errorList as any[]).map(message => ({ message }));
+                console.log(fieldName, errors);
+                setError(fieldName as Field, errors[0]);
             }
-            if(login.role === "user") {
-                role = login.role as "user";
-            }
+        }
 
-            return {
-                ...prevAuth,
-                id: login.id,
-                username: login.username,
-                role: role
-            }
-        })
-        navigate(from);
-    }
-  }
+        console.log('Formular Submit');
+    };
 
-  // throw new Error("Error!");
-
-  const onError = () => {
-    console.log("Formular error!");
-  }
+    const onError = () => {
+        console.log('Formular Error');
+    };
 
   return (
     <div className="form-container">
