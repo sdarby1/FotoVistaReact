@@ -10,7 +10,7 @@ body {
 }
 
 .error {
-  color: #e60000;
+  color: #F92F60;
 }
 
 header {
@@ -22,7 +22,7 @@ header {
 header nav ul {
   display: flex;
   justify-content: center;
-  gap: 20px;
+  gap: 40px;
   padding: 0px;
 }
 

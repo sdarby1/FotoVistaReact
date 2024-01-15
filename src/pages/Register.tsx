@@ -66,68 +66,72 @@ const Register = () => {
     <div className="form-container">
         <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)} noValidate>
             <h2>Registrieren</h2>
+            <div className="register-form-container">
+                <div className="form-group">
+                <label htmlFor="username">Nutzername</label> 
+                <input type="username" aria-invalid={errors.username ? "true" : "false"}
+                {...register("username", {
+                    required: {
+                        value: true,
+                        message: "❌ Dieses Feld ist ein Pflichtfeld"
+                    },
+                    minLength: {
+                        value: 4,
+                        message: "❌ Der Nutzername muss mindestens 4 Zeichen lang sein"
+                    },
+                    maxLength: {
+                        value: 16,
+                        message: "❌ Der Nutzername darf nicht länger als 16 Zeichen lang sein"
+                    },
+                    pattern: {
+                    value: /^[A-Za-z0-9_]+$/,
+                    message: "❌ Ungültiger Nutzername"
+                }
+                })}/>
+                <p className="error">{errors.username?.message}</p>
+            </div>
+                
+            <div className="form-group">
+                <label htmlFor="email">EMail</label> 
+                <input type="email" aria-invalid={errors.email ? "true" : "false"}
+                {...register("email", {
+                    required: {
+                        value: true,
+                        message: "❌ Dieses Feld ist ein Pflichtfeld"
+                    },
+                    pattern: {
+                        value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                        message: "❌ Ungültige Emailadresse"
+                    }
+                })}/>
+                <p className="error">{errors.email?.message}</p>
+            </div>
 
             <div className="form-group">
-            <label htmlFor="username">Nutzername</label> 
-            <input type="username" aria-invalid={errors.username ? "true" : "false"}
-             {...register("username", {
-                required: {
-                    value: true,
-                    message: "Dieses Feld ist ein Pflichtfeld"
-                },
-                minLength: {
-                    value: 8,
-                    message: "Der Nutzername muss mindestens 8 Zeichen lang sein"
-                },
-                pattern: {
-                  value: /^[A-Za-z0-9_]+$/,
-                  message: "Ungültiger Nutzername"
-              }
-            })}/>
-            <p className="error">{errors.username?.message}</p>
-           </div>
-            
-           <div className="form-group">
-            <label htmlFor="email">EMail</label> 
-            <input type="email" aria-invalid={errors.email ? "true" : "false"}
-             {...register("email", {
-                required: {
-                    value: true,
-                    message: "Dieses Feld ist ein Pflichtfeld"
-                },
-                pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Ungültige Emailadresse"
-                }
-            })}/>
-            <p className="error">{errors.email?.message}</p>
-           </div>
+                <label htmlFor="password">Passwort</label> 
+                <input type="password" aria-invalid={errors.password ? "true" : "false"}
+                {...register("password", {
+                    required: {
+                        value: true,
+                        message: "❌ Dieses Feld ist ein Pflichtfeld"
+                    }
+                })}/>
+                <p className="error">{errors.password?.message}</p>
+            </div>
 
-           <div className="form-group">
-            <label htmlFor="password">Passwort</label> 
-            <input type="password" aria-invalid={errors.password ? "true" : "false"}
-            {...register("password", {
-                 required: {
-                    value: true,
-                    message: "Dieses Feld ist ein Pflichtfeld"
-                }
-            })}/>
-            <p className="error">{errors.password?.message}</p>
+            <div className="form-group">
+                <label htmlFor="password">Passwort wiederholen</label> 
+                <input type="password" aria-invalid={errors.password ? "true" : "false"}
+                {...register("password", {
+                    required: {
+                        value: true,
+                        message: "❌ Dieses Feld ist ein Pflichtfeld"
+                    }
+                })}/>
+                <p className="error">{errors.password?.message}</p>
+            </div>
            </div>
-
-           <div className="form-group">
-            <label htmlFor="password">Passwort wiederholen</label> 
-            <input type="password" aria-invalid={errors.password ? "true" : "false"}
-            {...register("password", {
-                 required: {
-                    value: true,
-                    message: "Dieses Feld ist ein Pflichtfeld"
-                }
-            })}/>
-            <p className="error">{errors.password?.message}</p>
-           </div>
-
-           <button disabled={isSubmitting} type="submit" className="submit-btn">Login</button>
+           <button disabled={isSubmitting} type="submit" className="submit-btn">Registrieren</button>
 
            <p>Du hast bereits einen Account? <Link className="link-btn" to="/login">Einloggen</Link></p>
         </form>

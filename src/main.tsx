@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import './css/index.css'
 import './css/login.css'
+import './css/register.css'
 import AuthProvider from './context/AuthProvider.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

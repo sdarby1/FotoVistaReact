@@ -67,15 +67,15 @@ const Login = () => {
 
            <div className="form-group">
             <label htmlFor="email">EMail</label> 
-            <input type="email" aria-invalid={errors.email ? "true" : "false"}
+            <input type="email" autoComplete="off" aria-invalid={errors.email ? "true" : "false"}
              {...register("email", {
                 required: {
                     value: true,
-                    message: "Dieses Feld ist ein Pflichtfeld"
+                    message: "❌ Dieses Feld ist ein Pflichtfeld"
                 },
                 pattern: {
                     value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: "Ungültige Emailadresse"
+                    message: "❌ Ungültige Emailadresse"
                 }
             })}/>
             <p className="error">{errors.email?.message}</p>
@@ -87,7 +87,11 @@ const Login = () => {
             {...register("password", {
                  required: {
                     value: true,
-                    message: "Dieses Feld ist ein Pflichtfeld"
+                    message: "❌ Dieses Feld ist ein Pflichtfeld"
+                },
+                minLength: {
+                    value: 8,
+                    message: "❌ Das Passwort muss mindestens 8 Zeichen lang sein"
                 }
             })}/>
             <p className="error">{errors.password?.message}</p>
