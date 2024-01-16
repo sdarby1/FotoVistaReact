@@ -14,7 +14,7 @@ const RootLayout = () => {
   return (
     <>
         <header>
-            <div className="logo-container"><img src="./src/images/logo.svg"></img></div>
+            <div className="logo-container"><img src="/src/images/logo.svg"></img></div>
 
             <nav>
                 <ul>

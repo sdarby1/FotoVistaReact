@@ -12,6 +12,7 @@ import RootError from "./errors/RootError";
 import Profile from "./pages/Profile";
 import PrivateLayout from "./layouts/PrivateLayout";
 import CreatePost from "./pages/CreatePost";
+import ShowPost from "./pages/ShowPost";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,8 @@ const router = createBrowserRouter(
         <Route path="/discover" element={<Discover />} />
 
         <Route path="/register" element={<Register />} />
+
+        <Route path="/posts/:postId" element={<ShowPost />} />
 
         <Route element={<PrivateLayout />}>
           <Route path="/profile" element={<Profile />} />
