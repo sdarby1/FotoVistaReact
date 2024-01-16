@@ -109,3 +109,8 @@ header nav ul {
 .link-btn {
   color: #1028FF;
 }
+
+h2 {
+  font-weight: normal;
+  font-size: 40px;
+}
