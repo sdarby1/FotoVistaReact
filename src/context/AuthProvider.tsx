@@ -9,7 +9,10 @@ type Auth = {
     id: number | null;
     username: string | null;
     role: 'admin' | 'user' | null;
+    email: string | null;
+    profileImageUrl: string | null; // Neue Eigenschaft für das Profilbild
 };
+
 
 type AuthContext = {
     auth: Auth;
@@ -19,8 +22,11 @@ type AuthContext = {
 export const defaultAuth: Auth = {
     id: null,
     username: null,
-    role: null
+    role: null,
+    email: null,
+    profileImageUrl: null // Standardwert hinzugefügt
 };
+
 
 const defaultAuthContext = {
     auth: defaultAuth,

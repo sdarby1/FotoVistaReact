@@ -29,6 +29,7 @@ const RootLayout = () => {
                 {
                     auth.id ? (
                     <div className="user-container">
+                        {auth.profileImageUrl && <img src={auth.profileImageUrl} alt="Profilbild" className="profile-image" />}
                         <p>{auth.username}</p> 
                         <button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>
                     </div>

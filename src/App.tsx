@@ -13,6 +13,7 @@ import Profile from "./pages/Profile";
 import PrivateLayout from "./layouts/PrivateLayout";
 import CreatePost from "./pages/CreatePost";
 import ShowPost from "./pages/ShowPost";
+import EditProfile from "./pages/EditProfile";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,7 @@ const router = createBrowserRouter(
 
         <Route element={<PrivateLayout />}>
           <Route path="/profile" element={<Profile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
         </Route>
 
         <Route element={<PrivateLayout />}>

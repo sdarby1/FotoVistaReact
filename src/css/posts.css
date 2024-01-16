@@ -34,3 +34,25 @@
 .post-image {
     height: 400px;
 }
+
+.user-post {
+    position: relative;
+    border: 2px solid white;
+    width: fit-content;
+    height: fit-content;
+}
+
+.show-user-posts-image {
+    height: 200px;
+}
+
+.show-user-posts-title {
+    background-color: black;
+    color: white;
+    width: fit-content;
+    padding: 5px 20px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    margin: 0px;
+}
