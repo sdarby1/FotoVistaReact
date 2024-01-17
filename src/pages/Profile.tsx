@@ -8,7 +8,6 @@ interface PostType {
   title: string;
   description: string;
   image_path: string;
-  // ... andere Eigenschaften, die ein Post haben könnte
 }
 
 
@@ -34,18 +33,25 @@ const Profile = () => {
     }, [auth.id]);
 
     return (
-        <div>
-            <h2>Profil von {auth.username}</h2><Link to="/edit-profile">bearbeiten</Link>
-            <div>
-                <h3>Meine Posts</h3>
-                {userPosts.map((post) => (
-                  <Link to={`/posts/${post.id}`} className="post-link-btn">
-                      <div key={post.id} className="user-post">
-                          <h3 className="show-user-posts-title">{post.title}</h3>
-                          <img className="show-user-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
-                      </div>
-                    </Link>
-                ))}
+        <div className="form-container">
+            <div className="profile-container">
+                <div className="link-to-edit-container">
+                    <h2>Profil von {auth.username}</h2>
+                    <Link className="link-to-edit" to="/edit-profile">bearbeiten</Link>
+                </div>
+                <div>
+                    <h3>Meine Posts</h3>
+                    <div className="my-posts-container">
+                    {userPosts.map((post) => (
+                        <Link key={post.id} to={`/posts/${post.id}`} className="post-link-btn">
+                            <div className="user-post">
+                                <h3 className="show-user-posts-title">{post.title}</h3>
+                                <img className="show-user-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
+                            </div>
+                        </Link>
+                    ))}
+                    </div>
+                </div>
             </div>
         </div>
     );

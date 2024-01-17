@@ -25,16 +25,12 @@ const Login = () => {
         setError
     } = form;
 
-    // Wenn Nutzer von einer Private Route kam
-    // dann wollen wir dahin nach Login zurück
-    // Wenn er direkt auf Login klickte, schicken wir
-    // den Nutzer an die Homepage
+
     const { from = '/' } = state || {};
 
-    // Diese Funktion wird nur ausgeführt, wenn alle Felder
-    // korrekt validiert sind
+
     const onSubmit = async (data: FormValues) => {
-        // Logik für den Login
+
         try {
             await http.get('/sanctum/csrf-cookie');
             const response = await http.post('/auth/login', data);

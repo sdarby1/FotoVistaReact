@@ -51,6 +51,7 @@ const EditProfile = () => {
     return (
         <div className="form-container">
             <form className="edit-profile-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+                <h2>Profil bearbeiten</h2>
                 <div className="form-group">
                     <label htmlFor="username">Nutzername</label>
                     <input type="text" {...register("username", { required: "Nutzername ist erforderlich" })} />

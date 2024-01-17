@@ -20,7 +20,6 @@ const Register = () => {
             navigate('/login');
         } catch (error) {
             console.error(error);
-            // Implementieren Sie hier Ihre Fehlerbehandlung
         }
     };
 
