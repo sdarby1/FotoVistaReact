@@ -12,6 +12,7 @@ const RootLayout = () => {
             setAuth({ ...response.data, role: 'user' });
         } catch {}
     };
+    
 
     useEffect(() => void getInitialAuth(), []);
 
@@ -22,6 +23,8 @@ const RootLayout = () => {
         } catch {}
     };
     
+    const BASE_URL = 'http://localhost'; 
+    console.log(auth.profile_image);
 
   return (
     <>
@@ -42,8 +45,8 @@ const RootLayout = () => {
                 {
                     auth.id ? (
                     <div className="user-container">
-                        {auth.profileImageUrl && <img src={auth.profileImageUrl} alt="Profilbild" className="profile-image" />}
-                        <p>{auth.username}</p> 
+                        <img src={`${BASE_URL}/${auth.profile_image}`} alt="Profilbild" className="profile-image" />
+                        <p className="username">{auth.username}</p> 
                         <button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>
                     </div>
                     ) : ( <div className="user-container">

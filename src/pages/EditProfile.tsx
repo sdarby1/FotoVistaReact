@@ -7,13 +7,13 @@ import http from '../utils/http';
 type FormValues = {
     username: string;
     email: string;
-    profileImage: FileList;
+    profile_image: FileList;
 };
 
 const EditProfile = () => {
     const { auth, setAuth } = useContext(AuthContext);
     const { register, handleSubmit, setValue, formState: { errors }, setError } = useForm<FormValues>();
-    const [profileImagePreview, setProfileImagePreview] = useState(auth.profileImageUrl || '');
+    const [profileImagePreview, setProfileImagePreview] = useState(auth.profile_image || '');
 
     const navigate = useNavigate();
 
@@ -27,15 +27,15 @@ const EditProfile = () => {
         const formData = new FormData();
         formData.append('username', data.username);
         formData.append('email', data.email);
-        if (data.profileImage.length) {
-            formData.append('profile_image', data.profileImage[0]);
+        if (data.profile_image.length) {
+            formData.append('profile_image', data.profile_image[0]);
         }
 
         try {
             const response = await http.post('/update-profile', formData);
             setAuth({ ...auth, ...response.data.user });
-            if(response.data.user.profileImageUrl) {
-                setProfileImagePreview(response.data.user.profileImageUrl);
+            if(response.data.user.profile_image) {
+                setProfileImagePreview(response.data.user.profile_image);
             }
             navigate('/profile');
         } catch (exception: any) {
@@ -66,7 +66,7 @@ const EditProfile = () => {
 
                 <div className="form-group">
                     <label htmlFor="profileImage">Profilbild</label>
-                    <input type="file" {...register("profileImage")} onChange={handleProfileImageChange} />
+                    <input type="file" {...register("profile_image")} onChange={handleProfileImageChange} />
                     {profileImagePreview && <img className="image-preview" src={profileImagePreview} alt="Profilvorschau" />}
                 </div>
 

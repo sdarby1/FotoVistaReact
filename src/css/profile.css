@@ -4,7 +4,7 @@
     align-items: flex-start;
     justify-content: center;
     gap: 40px;
-    width: 80%;
+    width: 100%;
     margin-top: 50px;
     padding: 80px 100px;
     background-color: rgba(128, 128, 128, 0.162);
@@ -28,6 +28,10 @@
     text-decoration: none;
 }
 
+.link-to-edit img {
+    height: 30px;
+}
+
 .edit-profile-form {
     display: flex;
     flex-direction: column;
@@ -44,4 +48,18 @@
 .image-preview {
     height: 200px;
     width: fit-content;
+}
+
+.profile-user {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.profile-profile-image {
+    height: 100px;
+    width: 100px;
+    border-radius: 90%;
+    object-fit: cover;
 }

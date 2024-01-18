@@ -36,8 +36,12 @@ const Profile = () => {
         <div className="form-container">
             <div className="profile-container">
                 <div className="link-to-edit-container">
-                    <h2>Profil von {auth.username}</h2>
-                    <Link className="link-to-edit" to="/edit-profile">bearbeiten</Link>
+                    <div className="profile-user">
+                        <img src={`${BASE_URL}/${auth.profile_image}`} alt="Profilbild" className="profile-profile-image" />
+                        <h2>{auth.username}</h2>
+                    </div>
+                    <Link className="link-to-edit" to="/edit-profile"><img src="./src/images/edit.svg" /></Link>
+                    
                 </div>
                 <div>
                     <h3>Meine Posts</h3>

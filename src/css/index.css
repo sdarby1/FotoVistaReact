@@ -114,3 +114,16 @@ h2 {
   font-weight: normal;
   font-size: 40px;
 }
+
+.username {
+  font-weight: bold;
+  text-decoration: none;
+  color: white;
+}
+
+.profile-image {
+  height: 80px;
+  width: 80px;
+  border-radius: 90%;
+  object-fit: cover;
+}

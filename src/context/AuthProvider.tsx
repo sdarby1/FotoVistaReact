@@ -10,7 +10,7 @@ type Auth = {
     username: string | null;
     role: 'admin' | 'user' | null;
     email: string | null;
-    profileImageUrl: string | null; // Neue Eigenschaft für das Profilbild
+    profile_image: string | null; 
 };
 
 
@@ -24,7 +24,7 @@ export const defaultAuth: Auth = {
     username: null,
     role: null,
     email: null,
-    profileImageUrl: null // Standardwert hinzugefügt
+    profile_image: null // Standardwert hinzugefügt
 };
 
 

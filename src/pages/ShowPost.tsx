@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import http from '../utils/http';
+import { AuthContext } from '../context/AuthProvider';
+import { formatDistanceToNow, parseISO } from 'date-fns';
+
 
 interface UserType {
     id: number;
     username: string;
+    profile_image: string;
 }
 
 interface CommentType {
     id: number;
     body: string;
     user: UserType;
+    created_at: string;
 }
 
 interface PostType {
@@ -26,6 +31,12 @@ interface PostType {
     comments: CommentType[];
 }
 
+const formatCommentDate = (dateString: string) => {
+    const date = parseISO(dateString);
+    return formatDistanceToNow(date, { addSuffix: true });
+};
+
+
 const ShowPost = () => {
     const { postId } = useParams<{ postId: string }>();
     const [post, setPost] = useState<PostType | null>(null);
@@ -36,6 +47,8 @@ const ShowPost = () => {
     const [error, setError] = useState('');
 
     const BASE_URL = 'http://localhost';
+    const { auth } = useContext(AuthContext); // Holen Sie sich den Authentifizierungszustand aus Ihrem Kontext
+
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -113,29 +126,37 @@ const ShowPost = () => {
                 <div>Post nicht gefunden.</div>
             )}
 
-            <div className="comments-section">
-                <h2>Kommentare</h2>
-                <form onSubmit={handleCommentSubmit}>
-                    <div className="comment-form-container">
-                    <textarea
-                        value={newComment}
-                        onChange={(e) => setNewComment(e.target.value)}
-                        placeholder="Schreiben Sie einen Kommentar..."
-                    />
-                    <button className="submit-btn" type="submit">Kommentar absenden</button>
-                    </div>
-                </form>
-                {comments.map((comment) => (
-                    <div key={comment.id} className="comment">
-                        {comment.user && comment.user.username ? (
-                            <p><strong>{comment.user.username}:</strong> {comment.body}</p>
-                        ) : (
-                            <p><strong>Unbekannter Benutzer:</strong> {comment.body}</p>
-                        )}
-                    </div>
-                ))}     
-            </div>
-        </div>
+            {auth.id ? ( // Überprüfen Sie, ob ein Benutzer angemeldet ist
+                <div className="comments-section">
+                    <h2>Kommentare</h2>
+                    <form onSubmit={handleCommentSubmit}>
+                        <div className="comment-form-container">
+                            <textarea
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                placeholder="Schreiben Sie einen Kommentar..." 
+                            />
+                            <button className="submit-btn" type="submit">Kommentar absenden</button>
+                        </div>
+                    </form>
+                    <div className="comment-section">
+                    {comments.map((comment) => (
+                        <div key={comment.id} className="comment">
+                            <div className="comment-user">
+                                <img src={`${BASE_URL}/${comment.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />    
+                                <p><strong>{comment.user.username}</strong></p>    
+                            </div>        
+                            <p>{comment.body}</p>    
+                            <p><span className="comment-date">{formatCommentDate(comment.created_at)}</span></p>
+                          
+                        </div>
+                    ))}
+                </div>
+                </div>
+            ) : (
+                <div>Du musst angemeldet sein, um die Kommentare zu sehen.</div>
+            )}
+            </div>            
     );
 };
 
