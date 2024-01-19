@@ -17,9 +17,16 @@
     gap: 50px;
 }
 
+/* Anpassungen für das Masonry-Layout */
 .my-posts-container {
-    display: flex;
-    gap: 20px;
+    display: flex; /* Für Masonry Layout */
+    margin-left: -20px; /* Negativer Margin für korrekte Abstände */
+    width: auto;
+}
+
+.masonry-grid_column {
+    padding-left: 20px; /* Abstand zwischen den Spalten */
+    background-clip: padding-box;
 }
 
 .link-to-edit {

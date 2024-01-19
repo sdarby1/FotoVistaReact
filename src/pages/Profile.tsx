@@ -2,6 +2,8 @@ import { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import http from '../utils/http';
+import Masonry from 'react-masonry-css'; // Importieren Sie die Masonry-Komponente
+
 
 interface PostType {
   id: number;
@@ -32,10 +34,17 @@ const Profile = () => {
         }
     }, [auth.id]);
 
+       // Breakpoints für das Masonry-Layout
+       const breakpointColumnsObj = {
+        default: 3,
+        1100: 2,
+        700: 1
+    };
+
     return (
         <div className="form-container">
             <div className="profile-container">
-                <div className="link-to-edit-container">
+            <div className="link-to-edit-container">
                     <div className="profile-user">
                         <img src={`${BASE_URL}/${auth.profile_image}`} alt="Profilbild" className="profile-profile-image" />
                         <h2>{auth.username}</h2>
@@ -44,20 +53,25 @@ const Profile = () => {
                     
                 </div>
                 <div>
-                    <h3>Meine Posts</h3>
-                    <div className="my-posts-container">
-                    {userPosts.map((post) => (
-                        <Link key={post.id} to={`/posts/${post.id}`} className="post-link-btn">
-                            <div className="user-post">
-                                <h3 className="show-user-posts-title">{post.title}</h3>
-                                <img className="show-user-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
-                            </div>
-                        </Link>
-                    ))}
-                    </div>
+                    <h2>Meine Posts</h2>
+                    <Masonry
+                        breakpointCols={breakpointColumnsObj}
+                        className="my-posts-container"
+                        columnClassName="masonry-grid_column"
+                    >
+                        {userPosts.map((post) => (
+                            <Link key={post.id} to={`/posts/${post.id}`} className="post-link-btn">
+                                <div className="all-user-post">
+                                    <h3 className="show-user-posts-title">{post.title}</h3>
+                                    <img className="show-all-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
+                                </div>
+                            </Link>
+                        ))}
+                    </Masonry>
                 </div>
             </div>
         </div>
     );
 };
+
 export default Profile;

@@ -36,7 +36,6 @@ const RootLayout = () => {
                     <li><NavLink to="/" className="header-nav-btn">Home</NavLink></li>
                     <li><NavLink to="/discover" className="header-nav-btn">Entdecken</NavLink></li>
                     <li><NavLink to="/profile" className="header-nav-btn">Profil</NavLink></li>
-                    <li><NavLink to="/posts/2" className="header-nav-btn">Post 2</NavLink></li>
                     {auth.id && <li><NavLink to="/create-post" className="header-nav-btn">Post erstellen</NavLink></li>}
                 </ul>
             </nav>
