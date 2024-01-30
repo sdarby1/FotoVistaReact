@@ -47,8 +47,7 @@ const ShowPost = () => {
     const [error, setError] = useState('');
 
     const BASE_URL = 'http://localhost';
-    const { auth } = useContext(AuthContext); // Holen Sie sich den Authentifizierungszustand aus Ihrem Kontext
-
+    const { auth } = useContext(AuthContext); 
 
     useEffect(() => {
         const fetchPost = async () => {
@@ -79,7 +78,7 @@ const ShowPost = () => {
                 const response = await http.get(`/posts/${postId}/comments`);
                 const fetchedComments = response.data.comments;
                 console.log('Fetched Comments:', fetchedComments);
-                setComments(fetchedComments || []); // Hier wird sicherheitsshalber ein leeres Array gesetzt, wenn fetchedComments null ist
+                setComments(fetchedComments || []); 
                 setIsLoadingComments(false);
             } catch (err) {
                 console.error('Fehler beim Laden der Kommentare', err);
@@ -95,14 +94,16 @@ const ShowPost = () => {
         try {
             await http.post(`/posts/${postId}/comments`, { body: newComment });
             setNewComment('');
-            // Optional: Kommentarliste aktualisieren
+            
         } catch (error) {
             console.error('Fehler beim Senden des Kommentars', error);
         }
     };
 
     if (isLoadingPost || isLoadingComments) {
-        return <div>Laden...</div>;
+        return <div className="loading-container">
+                    <div className="loader"></div>
+               </div>
     }
 
     if (error) {
@@ -126,7 +127,7 @@ const ShowPost = () => {
                 <div>Post nicht gefunden.</div>
             )}
 
-            {auth.id ? ( // Überprüfen Sie, ob ein Benutzer angemeldet ist
+            {auth.id ? ( 
                 <div className="comments-section">
                     <h2>Kommentare</h2>
                     <form onSubmit={handleCommentSubmit}>

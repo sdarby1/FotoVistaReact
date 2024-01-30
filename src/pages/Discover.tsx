@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import http from '../utils/http';
 import Masonry from 'react-masonry-css';
 
-
 interface PostType {
   id: number;
   title: string;
@@ -13,16 +12,19 @@ interface PostType {
 
 const Discover = () => {
     const [allPosts, setAllPosts] = useState<PostType[]>([]);
-
+    const [isLoading, setIsLoading] = useState(true); 
     const BASE_URL = 'http://localhost';
 
     useEffect(() => {
         const fetchAllPosts = async () => {
+            setIsLoading(true); 
             try {
                 const response = await http.get('/posts'); 
                 setAllPosts(response.data.posts);
             } catch (err) {
                 console.error('Fehler beim Laden der Posts', err);
+            } finally {
+                setIsLoading(false); 
             }
         };
 
@@ -30,28 +32,34 @@ const Discover = () => {
     }, []);
 
     const breakpointColumnsObj = {
-        default: 3, // Standardmäßig 3 Spalten
-        1100: 2,   // Bei Bildschirmbreiten unter 1100px 2 Spalten
-        700: 1     // Unter 700px 1 Spalte
+        default: 3,
+        1100: 2,
+        700: 1
     };
 
     return (
         <div className="discover-container">
             <h2>Entdecken</h2>
-            <Masonry
-                breakpointCols={breakpointColumnsObj}
-                className="all-posts-container"
-                columnClassName="masonry-grid_column"
-            >
-                {allPosts.map((post) => (
-                    <Link key={post.id} to={`/posts/${post.id}`} className="post-link">
-                        <div className="all-user-post">
-                            <h3 className="show-user-posts-title">{post.title}</h3>
-                            <img className="show-all-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
-                        </div>
-                    </Link>
-                ))}
-            </Masonry>
+            {isLoading ? (
+                <div className="profile-loading-container">
+                    <div className="loader"></div>
+                </div>
+            ) : (
+                <Masonry
+                    breakpointCols={breakpointColumnsObj}
+                    className="all-posts-container"
+                    columnClassName="masonry-grid_column"
+                >
+                    {allPosts.map((post) => (
+                        <Link key={post.id} to={`/posts/${post.id}`} className="post-link">
+                            <div className="all-user-post">
+                                <h3 className="show-user-posts-title">{post.title}</h3>
+                                <img className="show-all-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
+                            </div>
+                        </Link>
+                    ))}
+                </Masonry>
+            )}
         </div>
     );
 };

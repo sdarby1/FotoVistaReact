@@ -2,6 +2,9 @@ import { useContext, useEffect } from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
 import { AuthContext, defaultAuth } from '../context/AuthProvider';
 import http from '../utils/http';
+import MobileNav from '../components/MobileNav';
+
+
 
 const RootLayout = () => {
     const { auth, setAuth } = useContext(AuthContext);
@@ -29,7 +32,7 @@ const RootLayout = () => {
   return (
     <>
         <header>
-            <div className="logo-container"><img src="/src/images/logo.svg"></img></div>
+            <a href="/"><div className="logo-container"><img src="/src/images/logo.svg"></img></div></a>
 
             <nav>
                 <ul>
@@ -53,6 +56,7 @@ const RootLayout = () => {
                     </div> )
                 }
             </li>
+            <MobileNav />
         </header>
         <main>
             <Outlet />

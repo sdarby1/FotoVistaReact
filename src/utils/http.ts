@@ -1,9 +1,15 @@
-import axios from "axios";
+import axios from 'axios';
 
-const http = axios.create({ 
+const http = axios.create({
     baseURL: 'http://localhost:80',
+    // Required by Laravel Sanctum
     withCredentials: true,
     withXSRFToken: true
- });
+});
 
- export default http;
+
+http.defaults.xsrfCookieName = 'XSRF-TOKEN';
+http.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
+
+
+export default http;
