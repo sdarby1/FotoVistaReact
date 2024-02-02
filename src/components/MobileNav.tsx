@@ -1,21 +1,23 @@
+import { NavLink} from 'react-router-dom';
+
 
 const MobileNav = () => {
   return (
     <>
         <nav className="mobile-nav">
             <ul>
-                <li><a href="">
-                    <img src="./src/images/navicons/home-icon.svg" />
+                <li><NavLink to="/">
+                    <img src="/src/images/navicons/home-icon.svg" />
                     Home
-                </a></li>
-                <li><a href="">
-                    <img src="./src/images/navicons/discover-icon.svg" />
+                </NavLink></li>
+                <li><NavLink to="/discover">
+                    <img src="/src/images/navicons/discover-icon.svg" />
                     Entdecken
-                </a></li>
-                <li><a href="">
+                </NavLink></li>
+                <li><NavLink to="/profile">
                     <img src="" />
                     Profil
-                </a></li>
+                </NavLink></li>
             </ul>
         </nav>
     </>

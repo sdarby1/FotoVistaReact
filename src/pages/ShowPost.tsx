@@ -113,9 +113,12 @@ const ShowPost = () => {
     return (
         <div>
             {post ? (
-                <div>
+                <div className="show-post-container">
                     <h1>{post.title}</h1>
-                    <p>Post by: {post.user.username}</p>
+                    <div className="profile-user">
+                        <img src={`${BASE_URL}/${post.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />
+                        {post.user.username}
+                    </div>
                     <p>{post.description}</p>
                     <img className="post-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
                     {post.camera && <p>Kamera: {post.camera}</p>}
@@ -130,7 +133,7 @@ const ShowPost = () => {
             {auth.id ? ( 
                 <div className="comments-section">
                     <h2>Kommentare</h2>
-                    <form onSubmit={handleCommentSubmit}>
+                    <form className="comment-form" onSubmit={handleCommentSubmit}>
                         <div className="comment-form-container">
                             <textarea
                                 value={newComment}

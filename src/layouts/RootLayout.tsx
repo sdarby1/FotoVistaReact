@@ -56,8 +56,8 @@ const RootLayout = () => {
                     </div> )
                 }
             </li>
-            <MobileNav />
         </header>
+        <MobileNav />
         <main>
             <Outlet />
         </main>

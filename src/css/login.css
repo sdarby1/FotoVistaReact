@@ -61,3 +61,13 @@ input:focus {
     background-color: #1028FF;
     color: white;
 }
+
+
+
+@media (max-width: 750px) {
+   .login-form {
+        border-radius: 0px;
+        padding: 40px;
+   }
+    
+  }

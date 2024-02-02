@@ -27,3 +27,11 @@
     width: 100%; /* Volle Breite der Bilder */
     display: block; /* Verhindert zusätzlichen Platz unter dem Bild */
 }
+
+
+
+@media (max-width: 750px) {
+    .discover-container {
+        padding: 40px;
+    }
+  }

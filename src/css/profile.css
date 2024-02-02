@@ -79,3 +79,32 @@
     justify-content: center;
     margin-top: 50px;
 }
+
+
+@media (max-width: 750px) {
+    .link-to-edit-container {
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+    }
+
+    .profile-container {
+        padding: 40px 40px 80px 40px;
+        border-radius: 0;
+    }
+
+    .profile-user h2 {
+        font-size: 24px ;
+    }
+
+    .profile-profile-image {
+        height: 80px;
+        width: 80px;
+    }
+
+    .edit-profile-form {
+        border-radius: 0;
+        width: 100%;
+        padding: 40px 40px 100px 40px;
+    }
+  }

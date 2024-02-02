@@ -9,9 +9,12 @@ body {
   padding: 10px 50px;
 }
 
+
 .error {
   color: #F92F60;
 }
+
+/* Header */
 
 header {
   width: 100%;
@@ -54,14 +57,18 @@ header nav ul {
 
 
 .mobile-nav {
-  position: absolute;
-  bottom: 0px;
-  width: 100%;
+  display: none; /* Sichtbarkeit wird durch Media Queries gesteuert */
+  position: fixed; /* Änderung von sticky zu fixed */
+  bottom: 0;
+  left: 0; /* Stellt sicher, dass es vollständig links ausgerichtet ist */
+  width: 100%; /* Sorgt dafür, dass es sich über die gesamte Breite erstreckt */
   padding: 10px 0px;
   height: fit-content;
   background-color: #1F2226;
   box-shadow: 0px -3px 2px rgba(0, 0, 0, 0.536);
+  z-index: 1000; /* Stellt sicher, dass die Navigationsleiste über anderen Elementen liegt */
 }
+
 
 .mobile-nav ul {
   width: 100%;
@@ -136,6 +143,17 @@ header nav ul {
   justify-content: flex-end;
   gap: 10px;
 }
+
+
+
+
+
+
+
+
+
+
+
 
 .link-btn {
   color: #1028FF;
@@ -219,5 +237,43 @@ h2 {
   }
   87.5% {
     box-shadow: 0em -2.6em 0em 0em rgba(255,255,255, 0.2), 1.8em -1.8em 0 0em rgba(255,255,255, 0.2), 2.5em 0em 0 0em rgba(255,255,255, 0.2), 1.75em 1.75em 0 0em rgba(255,255,255, 0.2), 0em 2.5em 0 0em rgba(255,255,255, 0.2), -1.8em 1.8em 0 0em rgba(255,255,255, 0.5), -2.6em 0em 0 0em rgba(255,255,255, 0.7), -1.8em -1.8em 0 0em #ffffff;
+  }
+}
+
+
+
+
+
+
+
+
+
+@media (max-width: 750px) {
+  body {
+    padding: 0px;
+  }
+
+  .mobile-nav {
+    display: block;
+    z-index: 20;
+  }
+
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 10px;
+  }
+  
+  header nav ul {
+    display: none;
+  }
+
+  .sign-in-btn {
+    display: none;
+  }
+
+  .user-container {
+    display: none;
   }
 }
