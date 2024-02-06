@@ -7,6 +7,7 @@ import './css/register.css'
 import './css/posts.css'
 import './css/profile.css'
 import './css/discover.css'
+import './css/home.css'
 import AuthProvider from './context/AuthProvider.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

@@ -61,7 +61,9 @@ const RootLayout = () => {
         <main>
             <Outlet />
         </main>
-        <footer></footer>
+        <footer>
+            Copyright © 2024 FotoVista Alle Rechte vorbehalten.
+        </footer>
     </>
   )
 }
