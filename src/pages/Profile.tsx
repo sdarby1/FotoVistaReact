@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthProvider';
 import http from '../utils/http';
 import Masonry from 'react-masonry-css';
@@ -12,9 +12,11 @@ interface PostType {
 }
 
 const Profile = () => {
-    const { auth } = useContext(AuthContext);
+    const { auth} = useContext(AuthContext);
     const [userPosts, setUserPosts] = useState<PostType[]>([]);
     const [isLoading, setIsLoading] = useState(true); 
+    const { state } = useLocation();
+    const message = state?.message;
     const BASE_URL = 'http://localhost';
 
     useEffect(() => {
@@ -35,6 +37,7 @@ const Profile = () => {
         }
     }, [auth.id]);
 
+
     // Breakpoints für das Masonry-Layout
     const breakpointColumnsObj = {
         default: 3,
@@ -44,7 +47,9 @@ const Profile = () => {
 
     return (
         <div className="form-container">
+            
             <div className="profile-container">
+            {message && <div className="success">{message}</div>}
             <div className="link-to-edit-container">
                     <div className="profile-user">
                         <img src={`${BASE_URL}/${auth.profile_image}`} alt="Profilbild" className="profile-profile-image" />
@@ -56,7 +61,7 @@ const Profile = () => {
                 <div>
                     <h2>Meine Posts</h2>
                     {isLoading ? (
-                        <div className="profile-loading-container">
+                        <div className="loader-container">
                             <div className="loader"></div>
                         </div>
                     ) : userPosts.length > 0 ? (
@@ -71,6 +76,7 @@ const Profile = () => {
                                         <h3 className="show-user-posts-title">{post.title}</h3>
                                         <img className="show-all-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
                                     </div>
+                                    <Link to={`/edit-post/${post.id}`} className="link-btn">Bearbeiten</Link>
                                 </Link>
                             ))}
                         </Masonry>

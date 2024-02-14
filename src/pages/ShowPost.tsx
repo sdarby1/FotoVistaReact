@@ -1,18 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import http from '../utils/http';
 import { AuthContext } from '../context/AuthProvider';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 
 
 interface UserType {
-    id: number;
-    username: string;
-    profile_image: string;
+    id: number | null;
+    username: string | null;
+    profile_image: string | null;
 }
 
 interface CommentType {
-    id: number;
+    id: number | null;
     body: string;
     user: UserType;
     created_at: string;
@@ -42,6 +42,8 @@ const ShowPost = () => {
     const [post, setPost] = useState<PostType | null>(null);
     const [comments, setComments] = useState<CommentType[] | null>(null);
     const [newComment, setNewComment] = useState('');
+    const { state } = useLocation();
+    const message = state?.message;
     const [isLoadingPost, setIsLoadingPost] = useState(true);
     const [isLoadingComments, setIsLoadingComments] = useState(true);
     const [error, setError] = useState('');
@@ -91,14 +93,42 @@ const ShowPost = () => {
 
     const handleCommentSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
+        if (!auth.id || !newComment.trim()) {
+            // Hier könntest du eine Benachrichtigung anzeigen, dass der Benutzer angemeldet sein muss
+            // oder dass der Kommentartext nicht leer sein darf.
+            return;
+        }
+    
         try {
+            // Simuliere das Hinzufügen eines neuen Kommentars mit einer temporären ID und dem aktuellen Datum
+            // und aktualisiere den Zustand, um den neuen Kommentar direkt anzuzeigen.
+            const tempComment = {
+                id: Date.now(), // Temporäre ID, idealerweise vom Backend ersetzen lassen
+                body: newComment,
+                user: {
+                    id: auth.id,
+                    username: auth.username,
+                    profile_image: auth.profile_image,
+                },
+                created_at: new Date().toISOString(), // Aktuelles Datum im ISO-Format
+            };
+    
+            // Füge den temporären Kommentar zur Liste der Kommentare hinzu
+            setComments((prevComments) => [...(prevComments || []), tempComment]);
+            setNewComment(''); // Setze das Kommentarfeld zurück
+    
+            // Sende den neuen Kommentar an das Backend
             await http.post(`/posts/${postId}/comments`, { body: newComment });
-            setNewComment('');
-            
+            // Optional: Kommentare vom Server neu abrufen, um sicherzustellen, dass die Ansicht aktuell ist
+            // und um die temporäre ID durch eine echte ID zu ersetzen
         } catch (error) {
             console.error('Fehler beim Senden des Kommentars', error);
+            // Hier könntest du eine Fehlermeldung anzeigen
         }
     };
+    
+    
+    
 
     if (isLoadingPost || isLoadingComments) {
         return <div className="loading-container">
@@ -112,19 +142,57 @@ const ShowPost = () => {
 
     return (
         <div>
+            {message && <div className="success">{message}</div>}
             {post ? (
                 <div className="show-post-container">
                     <h1>{post.title}</h1>
-                    <div className="profile-user">
+
+                    <div className="post-user">
                         <img src={`${BASE_URL}/${post.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />
                         {post.user.username}
                     </div>
-                    <p>{post.description}</p>
-                    <img className="post-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
-                    {post.camera && <p>Kamera: {post.camera}</p>}
-                    {post.lens && <p>Objektiv: {post.lens}</p>}
-                    {post.filter && <p>Filter: {post.filter}</p>}
-                    {post.tripod && <p>Stativ: {post.tripod}</p>}
+
+                    <div className="image-and-camera-container">
+
+                        <img className="post-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
+
+                        <div className="camera-settings-section">
+                            <div className="camera-setting">
+                                <div className="camera-setting-title">
+                                    <img src="/src/images/posticons/camera-icon.svg"/>
+                                    <p><strong>Kamera:</strong></p>
+                                </div>
+                                {post.camera && <p className="camera-setting-text">{post.camera}</p>}
+                            </div>
+                            <div className="camera-setting">
+                                <div className="camera-setting-title">
+                                    <img src="/src/images/posticons/lens-icon.svg"/>
+                                    <p><strong>Objektiv:</strong></p>
+                                </div>
+                                {post.lens && <p className="camera-setting-text">{post.lens}</p>}
+                            </div>
+                            <div className="camera-setting">
+                                <div className="camera-setting-title">
+                                    <img src="/src/images/posticons/filter-icon.svg"/>
+                                    <p><strong>Filter:</strong></p>
+                                </div>
+                                {post.filter && <p className="camera-setting-text">{post.filter}</p>}
+                            </div>
+                            <div className="camera-setting">
+                                <div className="camera-setting-title">
+                                    <img src="/src/images/posticons/tripod-icon.svg"/>
+                                    <p><strong>Stativ:</strong></p>
+                                </div>
+                                {post.tripod && <p className="camera-setting-text">{post.tripod}</p>}
+                            </div>
+                        </div>
+                        <div className="post-description-section">
+                            <h3 className="desc-title">Beschreibung</h3>
+                            <p className="post-description">{post.description}</p>
+                        </div>
+                    </div>
+                  
+
                 </div>
             ) : (
                 <div>Post nicht gefunden.</div>

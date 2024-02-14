@@ -14,6 +14,7 @@ import PrivateLayout from "./layouts/PrivateLayout";
 import CreatePost from "./pages/CreatePost";
 import ShowPost from "./pages/ShowPost";
 import EditProfile from "./pages/EditProfile";
+import EditPost from "./pages/EditPost";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
 
         <Route element={<PrivateLayout />}>
           <Route path="/create-post" element={<CreatePost />} />
+          <Route path="/edit-post/:postId" element={<EditPost />} />
         </Route>
 
         <Route path="*" element={<NotFound />}/>

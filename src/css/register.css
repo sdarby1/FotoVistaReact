@@ -17,3 +17,28 @@
     background-color: rgba(128, 128, 128, 0.162);
     border-radius: 20px;
 }
+
+
+.loader-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.495);
+    padding: 210px;
+    border-radius: 10px;
+}
+
+
+@media (max-width: 1000px) {
+    .register-form {
+        border-radius: 0px;
+    }
+}
+
+
+@media (max-width: 890px) {
+    .register-form-container {
+        grid-template-columns: 1fr;
+    }
+  }

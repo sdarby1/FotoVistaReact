@@ -41,7 +41,7 @@ const Discover = () => {
         <div className="discover-container">
             <h2>Entdecken</h2>
             {isLoading ? (
-                <div className="profile-loading-container">
+                <div className="loader-container">
                     <div className="loader"></div>
                 </div>
             ) : (

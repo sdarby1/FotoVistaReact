@@ -5,10 +5,10 @@ body {
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-  min-height: 100vh;
+  min-height: 100lvh;
   padding: 20px 200px;
   scroll-behavior: smooth;
-}
+} 
 
 #root {
   scroll-behavior: smooth;
@@ -16,8 +16,13 @@ body {
 
 .error {
   color: #F92F60;
+  font-size: 20px;
 }
 
+.success {
+  color: #00D26A;
+  font-size: 20px;
+}
 /* Header */
 
 header {
@@ -149,7 +154,13 @@ header nav ul {
   gap: 10px;
 }
 
-
+.searchbar {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font-size: 20px;
+  padding: 10px 40px;
+  border-radius: 10px;
+  border: none;
+}
 
 
 
@@ -176,8 +187,8 @@ h2 {
 }
 
 .profile-image {
-  height: 80px;
-  width: 80px;
+  height: 70px;
+  width: 70px;
   border-radius: 90%;
   object-fit: cover;
 }
@@ -246,11 +257,53 @@ h2 {
 }
 
 
+footer {
+  display: none;
+}
+
+@media (max-width: 1690px) {
+  body {
+    padding: 20px 100px;
+  }
+
+  .home-background-image {
+    right: 100px;
+    }
+
+  .mobile-nav {
+    display: block;
+    z-index: 20;
+  }
+
+  header nav ul {
+    display: none;
+  }
+
+  .sign-in-btn {
+    display: none;
+  }
+
+  .user-container {
+    display: none;
+  }
+}
+
+
+@media (max-width: 1440px) {
+  body {
+    padding: 20px 100px;
+  }
+}
+
+@media (max-width: 1190px) {
+  body {
+    padding: 20px 80px;
+  }
+}
 
 
 
-
-@media (max-width: 750px) {
+@media (max-width: 1000px) {
   body {
     padding: 0px;
   }

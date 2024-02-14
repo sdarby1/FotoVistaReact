@@ -5,7 +5,7 @@
 
 .home-headline {
     position: relative;
-    font-size: 120px;
+    font-size: 7.5rem;
     line-height: 112px;
     margin: 0px;
     z-index: 20;
@@ -68,4 +68,88 @@
 
 #comment-preview {
     margin-top: 120px;
+}
+
+
+
+@media (max-width: 1690px) {
+
+  
+    .home-background-image {
+      right: 100px;
+      }
+  
+  }
+  
+
+
+
+
+@media (max-width: 1440px) {
+    .home-background-image {
+        right: 100px;
+        }
+
+        #create-post-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #create-post-preview img {
+            width: 90%;
+        }
+
+        #comment-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        #comment-preview img {
+            width: 90%;
+        }
+  }
+
+
+
+@media (max-width: 1190px) {
+   .home-headline {
+    font-size: 6.5rem;
+   }
+
+   .home-background-image {
+    right: 80px;
+    }
+}
+
+
+@media (max-width: 1000px) {
+    .home-headline {
+        font-size: 5rem;
+        line-height: 70px;
+        margin-left: 40px;
+       }
+
+       .home-background-image {
+        right: 40px;
+        }
+
+        .home-sub-headline {
+            margin-left: 40px;
+        }
+    
+}
+
+@media (max-width: 600px) {
+    .home-headline {
+        font-size: 4rem;
+        line-height: 58px;
+        margin-left: 40px;
+       }
+
+       .home-background-image {
+        right: 40px;
+        }
+    
 }

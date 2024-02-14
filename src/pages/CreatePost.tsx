@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form';
 import http from '../utils/http';
@@ -36,14 +36,14 @@ const CreatePost = () => {
         return true;
     };
 
-    const [imagePreview, setImagePreview] = useState<string | null>(null);
+    // const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-    const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+   /* const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files ? event.target.files[0] : null;
         if (file) {
             setImagePreview(URL.createObjectURL(file));
         }
-    };
+    }; */
 
 
     const onSubmit = async (data: FormValues) => {
@@ -57,21 +57,28 @@ const CreatePost = () => {
             if (data.filter) formData.append('filter', data.filter);
             if (data.tripod) formData.append('tripod', data.tripod);
 
-            await http.post('/auth/create-post', formData, {
+            const response = await http.post('/auth/create-post', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data'
                 }
             });
 
-            navigate('/');
+            const postId = response.data.post.id;
+            navigate(`/posts/${postId}`, { state: { message: '✅ Post erfolgreich erstellt' } });
         } catch (error) {
-            setSubmitError('Fehler beim Erstellen des Posts');
+            setSubmitError('❌ Fehler beim Erstellen des Posts');
             console.error(error);
         }
     };
 
     return (
         <div className="form-container">
+           {isSubmitting && (
+                <div className="loader-container">
+                    <div className="loader"></div>
+                </div>
+            )}
+            
             <form className="create-post-form" onSubmit={handleSubmit(onSubmit)} noValidate>
                 <h2>Post erstellen</h2>
                 <div className="post-form-container">
@@ -110,9 +117,9 @@ const CreatePost = () => {
                         })} />
                       {errors.image && <p className="error">{errors.image.message}</p>}
                   </div>
-                  {imagePreview && <div className="image-preview">
+                  {/* {imagePreview && <div className="image-preview">
                     <img src={imagePreview} alt="Vorschau" />
-                  </div>}
+                  </div>}  */}
                 </div>
                 <div className="camera-settings">
                   <div className="form-group">
@@ -158,7 +165,13 @@ const CreatePost = () => {
                 </div>
                 {submitError && <p className="error">{submitError}</p>}
 
-                <button disabled={isSubmitting} type="submit" className="submit-btn">Post erstellen</button>
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+                >
+                    {isSubmitting ? 'Erstellen des Posts läuft...' : 'Post erstellen'}
+                </button>
             </form>
         </div>
     );

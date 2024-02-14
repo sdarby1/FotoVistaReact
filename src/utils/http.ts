@@ -8,8 +8,6 @@ const http = axios.create({
 });
 
 
-http.defaults.xsrfCookieName = 'XSRF-TOKEN';
-http.defaults.xsrfHeaderName = 'X-XSRF-TOKEN';
 
 
 export default http;

@@ -4,7 +4,6 @@ type Props = {
     children: ReactNode;
 };
 
-// DO NOT STORE PASSWORDS IN CONTEXT
 type Auth = {
     id: number | null;
     username: string | null;

@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
 import { DevTool } from "@hookform/devtools"
 import { Link, useLocation, useNavigate } from 'react-router-dom'
@@ -11,18 +11,23 @@ type FormValues = {
     password: string;
 };
 
+
+
 const Login = () => {
-    const { auth, setAuth } = useContext(AuthContext);
+    const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
     const { state } = useLocation();
+    const message = state?.message; // Zugriff auf die Nachricht
+    const [backendError, setBackendError] = useState(""); // Zustand für Backend-Fehlermeldung
+
+
 
     const form = useForm<FormValues>();
     const {
         register,
         control,
         handleSubmit,
-        formState: { errors, isSubmitting },
-        setError
+        formState: { errors, isSubmitting }      
     } = form;
 
 
@@ -39,13 +44,11 @@ const Login = () => {
             setAuth({ ...userData, role: userData.role ?? 'user' });
             navigate(from);
         } catch (exception: any) {
-            const errors = exception.response.data.errors;
-
-            for (let [fieldName, errorList] of Object.entries(errors)) {
-                type Field = 'email' | 'password' | 'root';
-                const errors = (errorList as any[]).map(message => ({ message }));
-                console.log(fieldName, errors);
-                setError(fieldName as Field, errors[0]);
+            const errorResponse = exception.response?.data?.errors?.root;
+            if (errorResponse) {
+                setBackendError(errorResponse[0]); 
+            } else {
+                setBackendError("Ein unbekannter Fehler ist aufgetreten.");
             }
         }
 
@@ -58,7 +61,16 @@ const Login = () => {
 
   return (
     <div className="form-container">
+         {isSubmitting && (
+                <div className="loader-container">
+                    <div className="loader"></div>
+                </div>
+            )}
+
         <form className="login-form" onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+            {message && <div className="success">{message}</div>}
+            {backendError && <div className="error">{backendError}</div>}
+
             <h2>Einloggen</h2>
 
            <div className="form-group">
@@ -93,7 +105,13 @@ const Login = () => {
             <p className="error">{errors.password?.message}</p>
            </div>
 
-           <button disabled={isSubmitting} type="submit" className="submit-btn">Login</button>
+           <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+                >
+                    {isSubmitting ? 'Einloggen läuft...' : 'Einloggen'}
+                </button>
 
            <p>Du hast noch keinen Account? <Link className="link-btn" to="/register">Registrieren</Link></p>
         </form>

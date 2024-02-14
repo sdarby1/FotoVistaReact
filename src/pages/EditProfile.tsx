@@ -1,8 +1,9 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthProvider';
+import { AuthContext, defaultAuth } from '../context/AuthProvider';
 import http from '../utils/http';
+import DeleteUser from '../components/DeleteUser';
 
 type FormValues = {
     username: string;
@@ -10,9 +11,11 @@ type FormValues = {
     profile_image: FileList;
 };
 
+
+
 const EditProfile = () => {
     const { auth, setAuth } = useContext(AuthContext);
-    const { register, handleSubmit, setValue, formState: { errors }, setError } = useForm<FormValues>();
+    const { register, handleSubmit, setValue, formState: { isSubmitting, errors } } = useForm<FormValues>();
     const [profileImagePreview, setProfileImagePreview] = useState(auth.profile_image || '');
 
     const navigate = useNavigate();
@@ -37,7 +40,7 @@ const EditProfile = () => {
             if(response.data.user.profile_image) {
                 setProfileImagePreview(response.data.user.profile_image);
             }
-            navigate('/profile');
+            navigate('/profile', { state: { message: '✅ Profil erfolgreich bearbeitet' } });
         } catch (exception: any) {
         }
     };
@@ -48,19 +51,26 @@ const EditProfile = () => {
         }
     };
 
+
     return (
         <div className="form-container">
+             {isSubmitting && (
+                <div className="loader-container">
+                    <div className="loader"></div>
+                </div>
+            )}
+
             <form className="edit-profile-form" onSubmit={handleSubmit(onSubmit)} noValidate>
                 <h2>Profil bearbeiten</h2>
                 <div className="form-group">
                     <label htmlFor="username">Nutzername</label>
-                    <input type="text" {...register("username", { required: "Nutzername ist erforderlich" })} />
+                    <input type="text" {...register("username", { required: "❌ Dieses Feld ist ein Pflichtfeld" })} />
                     {errors.username && <p className="error">{errors.username.message}</p>}
                 </div>
 
                 <div className="form-group">
                     <label htmlFor="email">E-Mail</label>
-                    <input type="email" {...register("email", { required: "E-Mail ist erforderlich" })} />
+                    <input type="email" {...register("email", { required: "❌ Dieses Feld ist ein Pflichtfeld" })} />
                     {errors.email && <p className="error">{errors.email.message}</p>}
                 </div>
 
@@ -70,7 +80,14 @@ const EditProfile = () => {
                     {profileImagePreview && <img className="image-preview" src={profileImagePreview} alt="Profilvorschau" />}
                 </div>
 
-                <button type="submit" className="submit-btn">Profil aktualisieren</button>
+                <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+                >
+                    {isSubmitting ? 'Aktualisierung läuft...' : 'Profil aktualisieren'}
+                </button>
+                <DeleteUser />         
             </form>
         </div>
     );

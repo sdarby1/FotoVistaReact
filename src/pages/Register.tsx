@@ -17,14 +17,22 @@ const Register = () => {
     const onSubmit = async (data: FormValues) => {
         try {
             await http.post('/auth/register', data);
-            navigate('/login');
+            navigate('/login', { state: { message: '✅ Erfolgreich registriert. Logge dich jetzt ein.' } });
         } catch (error) {
             console.error(error);
         }
     };
 
+
     return (
+        
         <div className="form-container">
+            {isSubmitting && (
+                <div className="loader-container">
+                    <div className="loader"></div>
+                </div>
+            )}
+
             <form className="register-form" onSubmit={handleSubmit(onSubmit)} noValidate>
                 <h2>Registrieren</h2>
                 <div className="register-form-container">
@@ -94,7 +102,13 @@ const Register = () => {
                 {errors.passwordRepeat && <p className="error">{errors.passwordRepeat.message}</p>}
             </div>
             </div>
-            <button disabled={isSubmitting} type="submit" className="submit-btn">Registrieren</button>
+            <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+                >
+                    {isSubmitting ? 'Registrierung läuft...' : 'Registrieren'}
+                </button>
 
             <p>Hast du schon ein Konto? <Link className="link-btn" to="/login">Einloggen</Link></p>
         </form>
