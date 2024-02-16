@@ -15,6 +15,7 @@ import CreatePost from "./pages/CreatePost";
 import ShowPost from "./pages/ShowPost";
 import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
+import UserProfile from "./pages/UserProfile";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -30,6 +31,8 @@ const router = createBrowserRouter(
         <Route path="/register" element={<Register />} />
 
         <Route path="/posts/:postId" element={<ShowPost />} />
+
+        <Route path="/user/:userId" element={<UserProfile />} />
 
         <Route element={<PrivateLayout />}>
           <Route path="/profile" element={<Profile />} />

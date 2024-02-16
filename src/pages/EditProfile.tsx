@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext, defaultAuth } from '../context/AuthProvider';
+import { AuthContext } from '../context/AuthProvider';
 import http from '../utils/http';
 import DeleteUser from '../components/DeleteUser';
 

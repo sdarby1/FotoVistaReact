@@ -1,8 +1,9 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, Link } from 'react-router-dom';
 import http from '../utils/http';
 import { AuthContext } from '../context/AuthProvider';
 import { formatDistanceToNow, parseISO } from 'date-fns';
+import DeletePostButton from '../components/AdminDeletePosts';
 
 
 interface UserType {
@@ -82,6 +83,7 @@ const ShowPost = () => {
                 console.log('Fetched Comments:', fetchedComments);
                 setComments(fetchedComments || []); 
                 setIsLoadingComments(false);
+
             } catch (err) {
                 console.error('Fehler beim Laden der Kommentare', err);
                 setIsLoadingComments(false);
@@ -146,12 +148,13 @@ const ShowPost = () => {
             {post ? (
                 <div className="show-post-container">
                     <h1>{post.title}</h1>
-
-                    <div className="post-user">
-                        <img src={`${BASE_URL}/${post.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />
-                        {post.user.username}
-                    </div>
-
+                    <Link to={`/user/${post.user.id}`} className="post-link-btn">
+                        <div className="post-user">
+                            <img src={`${BASE_URL}/${post.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />
+                            {post.user.username}
+                        </div>
+                    </Link>
+                    <DeletePostButton postId={post?.id} postTitle={post?.title} />
                     <div className="image-and-camera-container">
 
                         <img className="post-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
@@ -214,10 +217,12 @@ const ShowPost = () => {
                     <div className="comment-section">
                     {comments.map((comment) => (
                         <div key={comment.id} className="comment">
-                            <div className="comment-user">
-                                <img src={`${BASE_URL}/${comment.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />    
-                                <p><strong>{comment.user.username}</strong></p>    
-                            </div>        
+                            <Link to={`/user/${comment.user.id}`} className="post-link-btn">
+                                <div className="comment-user">
+                                    <img src={`${BASE_URL}/${comment.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />    
+                                    <p><strong>{comment.user.username}</strong></p>    
+                                </div>   
+                            </Link>     
                             <p>{comment.body}</p>    
                             <p><span className="comment-date">{formatCommentDate(comment.created_at)}</span></p>
                           
@@ -227,8 +232,9 @@ const ShowPost = () => {
                 </div>
             ) : (
                 <div>Du musst angemeldet sein, um die Kommentare zu sehen.</div>
-            )}
-            </div>            
+            )}  
+            </div>      
+              
     );
 };
 

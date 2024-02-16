@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import http from '../utils/http';
 import Masonry from 'react-masonry-css';
 
@@ -14,6 +14,9 @@ const Discover = () => {
     const [allPosts, setAllPosts] = useState<PostType[]>([]);
     const [isLoading, setIsLoading] = useState(true); 
     const BASE_URL = 'http://localhost';
+    const { state } = useLocation();
+    const message = state?.message; // Zugriff auf die Nachricht
+
 
     useEffect(() => {
         const fetchAllPosts = async () => {
@@ -39,6 +42,7 @@ const Discover = () => {
 
     return (
         <div className="discover-container">
+            {message && <div className="success">{message}</div>}
             <h2>Entdecken</h2>
             {isLoading ? (
                 <div className="loader-container">

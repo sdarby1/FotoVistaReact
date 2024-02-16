@@ -11,6 +11,11 @@
     border-radius: 20px;
 }
 
+.post-link-btn {
+    text-decoration: none;
+    color: white;
+}
+
 .post-form-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -212,6 +217,23 @@ textarea:focus {
     border-radius: 20px;
 }
 
+
+.delete-post-btn {
+    padding: 8px 10px;
+    border: 2px solid #ac0000;
+    border-radius: 10px;
+    color: #ac0000;
+    background-color: transparent;
+    text-decoration: none;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.4s;
+  }
+  
+  .delete-post-btn:hover {
+    background-color: #ac0000;
+    color: white;
+  }
 
 @media (max-width: 750px) {
     .show-post-container {

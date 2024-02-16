@@ -113,7 +113,7 @@ const Login = () => {
                     {isSubmitting ? 'Einloggen läuft...' : 'Einloggen'}
                 </button>
 
-           <p>Du hast noch keinen Account? <Link className="link-btn" to="/register">Registrieren</Link></p>
+           <p className="link-text">Du hast noch keinen Account? <Link className="link-btn" to="/register">Registrieren</Link></p>
         </form>
         <DevTool control= { control } />
     </div>

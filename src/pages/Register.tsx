@@ -110,7 +110,7 @@ const Register = () => {
                     {isSubmitting ? 'Registrierung läuft...' : 'Registrieren'}
                 </button>
 
-            <p>Hast du schon ein Konto? <Link className="link-btn" to="/login">Einloggen</Link></p>
+            <p className="link-text">Hast du schon ein Konto? <Link className="link-btn" to="/login">Einloggen</Link></p>
         </form>
     </div>
 );
