@@ -11,7 +11,7 @@ const DeleteUser = () => {
         if (window.confirm("Möchtest du wirklich dein Konto löschen? Dies kann nicht rückgängig gemacht werden.")) {
             try {
                 await http.delete('/user/delete');
-                setAuth(defaultAuth); // Authentifizierungsstatus im Kontext auf null setzen
+                setAuth(defaultAuth); 
                 navigate('/login', { state: { message: '✅ Dein Konto wurde erfolgreich gelöscht' } });
             } catch (error) {
                 console.error('Fehler beim Löschen des Kontos', error);

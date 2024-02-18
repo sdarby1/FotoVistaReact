@@ -9,6 +9,7 @@ import http from "../utils/http"
 type FormValues = {
     email: string;
     password: string;
+    role: string;
 };
 
 

@@ -3,7 +3,7 @@ import { NavLink, Outlet, Link } from 'react-router-dom';
 import { AuthContext, defaultAuth } from '../context/AuthProvider';
 import http from '../utils/http';
 import MobileNav from '../components/MobileNav';
-import Searchbar from '../components/Searchbar';
+// import Searchbar from '../components/Searchbar';
 
 
 
@@ -13,7 +13,7 @@ const RootLayout = () => {
     const getInitialAuth = async () => {
         try {
             const response = await http.get('/auth/user');
-            setAuth({ ...response.data, role: 'user' });
+            setAuth({ ...response.data });
         } catch {}
     };
     
@@ -28,7 +28,6 @@ const RootLayout = () => {
     };
     
     const BASE_URL = 'http://localhost'; 
-    console.log(auth.profile_image);
 
   return (
     <>

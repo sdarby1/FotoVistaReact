@@ -4,6 +4,7 @@ import http from '../utils/http';
 import { AuthContext } from '../context/AuthProvider';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import DeletePostButton from '../components/AdminDeletePosts';
+import DeleteCommentButton from '../components/AdminDeleteComments';
 
 
 interface UserType {
@@ -13,7 +14,7 @@ interface UserType {
 }
 
 interface CommentType {
-    id: number | null;
+    id: number;
     body: string;
     user: UserType;
     created_at: string;
@@ -41,7 +42,7 @@ const formatCommentDate = (dateString: string) => {
 const ShowPost = () => {
     const { postId } = useParams<{ postId: string }>();
     const [post, setPost] = useState<PostType | null>(null);
-    const [comments, setComments] = useState<CommentType[] | null>(null);
+    const [comments, setComments] = useState<CommentType[]>([]);
     const [newComment, setNewComment] = useState('');
     const { state } = useLocation();
     const message = state?.message;
@@ -96,40 +97,39 @@ const ShowPost = () => {
     const handleCommentSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
         if (!auth.id || !newComment.trim()) {
-            // Hier könntest du eine Benachrichtigung anzeigen, dass der Benutzer angemeldet sein muss
-            // oder dass der Kommentartext nicht leer sein darf.
             return;
         }
     
         try {
-            // Simuliere das Hinzufügen eines neuen Kommentars mit einer temporären ID und dem aktuellen Datum
-            // und aktualisiere den Zustand, um den neuen Kommentar direkt anzuzeigen.
+
             const tempComment = {
-                id: Date.now(), // Temporäre ID, idealerweise vom Backend ersetzen lassen
+                id: Date.now(), 
                 body: newComment,
                 user: {
                     id: auth.id,
                     username: auth.username,
                     profile_image: auth.profile_image,
                 },
-                created_at: new Date().toISOString(), // Aktuelles Datum im ISO-Format
+                created_at: new Date().toISOString(), 
             };
     
-            // Füge den temporären Kommentar zur Liste der Kommentare hinzu
             setComments((prevComments) => [...(prevComments || []), tempComment]);
-            setNewComment(''); // Setze das Kommentarfeld zurück
+            setNewComment(''); 
     
-            // Sende den neuen Kommentar an das Backend
             await http.post(`/posts/${postId}/comments`, { body: newComment });
-            // Optional: Kommentare vom Server neu abrufen, um sicherzustellen, dass die Ansicht aktuell ist
-            // und um die temporäre ID durch eine echte ID zu ersetzen
+
         } catch (error) {
             console.error('Fehler beim Senden des Kommentars', error);
-            // Hier könntest du eine Fehlermeldung anzeigen
         }
     };
     
-    
+    const [successMessage, setSuccessMessage] = useState('');
+
+    const handleCommentDeleted = (commentId: number) => {
+        setComments(currentComments => currentComments?.filter(comment => comment.id !== commentId));
+        setSuccessMessage('✅ Kommentar erfolgreich gelöscht.');
+        setTimeout(() => setSuccessMessage(''), 5000); 
+    };
     
 
     if (isLoadingPost || isLoadingComments) {
@@ -203,6 +203,7 @@ const ShowPost = () => {
 
             {auth.id ? ( 
                 <div className="comments-section">
+                    {successMessage && <div className="success">{successMessage}</div>}
                     <h2>Kommentare</h2>
                     <form className="comment-form" onSubmit={handleCommentSubmit}>
                         <div className="comment-form-container">
@@ -225,7 +226,7 @@ const ShowPost = () => {
                             </Link>     
                             <p>{comment.body}</p>    
                             <p><span className="comment-date">{formatCommentDate(comment.created_at)}</span></p>
-                          
+                            <DeleteCommentButton commentId={comment.id} onCommentDeleted={handleCommentDeleted} />
                         </div>
                     ))}
                 </div>
