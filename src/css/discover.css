@@ -28,6 +28,33 @@
     display: block; /* Verhindert zusätzlichen Platz unter dem Bild */
 }
 
+.show-all-posts-like {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+    background-color: black;
+    margin: 0px;
+    padding: 5px 10px;
+    color: white;
+}
+
+.sort-container label {
+    font-size: 20px;
+    margin-right: 10px;
+}
+
+.sort-container {
+    margin-bottom: 40px;
+}
+
+#sortOrder {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    padding: 5px 10px;
+    cursor: pointer; 
+    border-radius: 10px;
+}
+
 
 
 @media (max-width: 750px) {

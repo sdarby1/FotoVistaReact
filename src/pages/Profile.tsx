@@ -76,9 +76,7 @@ const Profile = () => {
                 <div className="mobile-profile-logout">
                 {
                 auth.id ? (
-                    <div >
                         <button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>
-                    </div>
                     ) : (
                         <></>
                     )

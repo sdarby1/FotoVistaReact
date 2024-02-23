@@ -141,7 +141,6 @@ header nav ul {
   background-color: transparent;
   text-decoration: none;
   font-size: 20px;
-  margin-left: 20px;
   cursor: pointer;
   transition: 0.4s;
 }
@@ -149,6 +148,7 @@ header nav ul {
 .sign-out-btn:hover {
   background-color: #ac0000;
   color: white;
+  margin: 0px;
 }
 
 .user-container {

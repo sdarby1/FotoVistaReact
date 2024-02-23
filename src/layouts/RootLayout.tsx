@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
-import { AuthContext, defaultAuth } from '../context/AuthProvider';
+import { AuthContext, /*defaultAuth*/ } from '../context/AuthProvider';
 import http from '../utils/http';
 import MobileNav from '../components/MobileNav';
 import SearchComponent from '../components/SearchComponent';
@@ -21,12 +21,12 @@ const RootLayout = () => {
 
     useEffect(() => void getInitialAuth(), []);
 
-    const handleLogout = async () => {
+   /* const handleLogout = async () => {
         try {
             await http.get('/auth/logout');
             setAuth(defaultAuth);
         } catch {}
-    };
+    }; */
     
     const BASE_URL = 'http://localhost'; 
 

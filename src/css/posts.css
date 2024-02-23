@@ -9,7 +9,6 @@
     padding: 80px 100px;
     background-color: rgba(128, 128, 128, 0.162);
     border-radius: 20px;
-    box-sizing: border-box;
 }
 
 .post-link-btn {
@@ -31,11 +30,33 @@
     margin: 20px 0px;
 }
 
+.post-headline {
+    font-size: 4em;
+}
+
 .desc-title {
     width: 100%;
     text-align: center;
     font-size: 25px;
     color: white;
+}
+
+.post-title-container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    gap: 40px;
+    margin-top: 50px;
+}
+
+.like-post-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 20px;
 }
 
 .post-description-section {
@@ -340,6 +361,9 @@ textarea:focus {
         text-align: center;
     }
 
+    .create-post-form {
+        box-sizing: border-box;
+    }
 
 
     .image-and-camera-container {

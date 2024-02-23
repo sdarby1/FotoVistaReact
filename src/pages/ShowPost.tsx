@@ -7,6 +7,7 @@ import DeletePostButton from '../components/AdminDeletePosts';
 import DeleteCommentButton from '../components/AdminDeleteComments';
 import ReplyComponent from '../components/ReplyComponent';
 import DeleteReplyButton from '../components/AdminDeleteReply';
+import LikesComponent from '../components/LikesComponent';
 
 
 interface UserType {
@@ -215,14 +216,17 @@ const ShowPost = () => {
             {message && <div className="success">{message}</div>}
             {post ? (
                 <div className="show-post-container">
-                    <h1>{post.title}</h1>
+                    <div className="post-title-container">
+                        <h1 className="post-headline">{post.title}</h1>
+                        <LikesComponent postId={post.id} />
+                    </div>
                     <Link to={`/user/${post.user.id}`} className="post-link-btn">
                         <div className="post-user">
                         <img src={post.user.profile_image ? `${BASE_URL}/${post.user.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="profile-image" />
                             {post.user.username}
                         </div>
                     </Link>
-                    <DeletePostButton postId={post?.id} postTitle={post?.title} />
+                        <DeletePostButton postId={post?.id} postTitle={post?.title} />
                     <div className="image-and-camera-container">
 
                         <img className="post-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
