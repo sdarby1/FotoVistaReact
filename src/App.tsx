@@ -16,6 +16,7 @@ import ShowPost from "./pages/ShowPost";
 import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
 import UserProfile from "./pages/UserProfile";
+import SearchResultsPage from "./pages/SearchResults";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -33,6 +34,8 @@ const router = createBrowserRouter(
         <Route path="/posts/:postId" element={<ShowPost />} />
 
         <Route path="/user/:userId" element={<UserProfile />} />
+
+        <Route path="/search-results" element={<SearchResultsPage />} />
 
         <Route element={<PrivateLayout />}>
           <Route path="/profile" element={<Profile />} />

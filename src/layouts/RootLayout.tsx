@@ -3,6 +3,7 @@ import { NavLink, Outlet, Link } from 'react-router-dom';
 import { AuthContext, defaultAuth } from '../context/AuthProvider';
 import http from '../utils/http';
 import MobileNav from '../components/MobileNav';
+import SearchComponent from '../components/SearchComponent';
 // import Searchbar from '../components/Searchbar';
 
 
@@ -47,10 +48,10 @@ const RootLayout = () => {
                 {
                     auth.id ? (
                     <div className="user-container">
-                        {/* <Searchbar /> */}
-                        <img src={`${BASE_URL}/${auth.profile_image}`} alt="Profilbild" className="profile-image" />
+                        <SearchComponent />
+                        <img src={auth.profile_image ? `${BASE_URL}/${auth.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="profile-image" />
                         <p className="username">{auth.username}</p> 
-                        <button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>
+                        {/*<button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>*/}
                     </div>
                     ) : ( <div className="user-container">
                         <Link to="/login" className="sign-in-btn">Einloggen</Link> 

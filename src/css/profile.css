@@ -98,6 +98,16 @@
     color: white;
 }
 
+.mobile-profile-logout {
+    display: block;
+}
+
+@media (max-width: 1690px) {
+    .mobile-profile-logout {
+        display: block;
+    }
+}
+
 
 @media (max-width: 750px) {
     .link-to-edit-container {
@@ -107,6 +117,9 @@
     }
 
     .profile-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         padding: 40px 40px 80px 40px;
         border-radius: 0;
     }

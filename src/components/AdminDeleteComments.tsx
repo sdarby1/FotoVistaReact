@@ -10,7 +10,7 @@ interface DeleteCommentButtonProps {
 const DeleteCommentButton: React.FC<DeleteCommentButtonProps> = ({ commentId, onCommentDeleted }) => {
     const { auth } = useContext(AuthContext);
 
-    const handleDelete = async () => {
+    const handleDeleted = async () => {
         if (window.confirm("Möchtest du diesen Kommentar wirklich löschen?")) {
             try {
                 await http.delete(`/admin/comment/${commentId}`);
@@ -20,10 +20,11 @@ const DeleteCommentButton: React.FC<DeleteCommentButtonProps> = ({ commentId, on
             }
         }
     };
+    
 
     return auth.role === 'admin' ? (
-        <button onClick={handleDelete} className="delete-comment-btn">
-            Kommentar löschen
+        <button onClick={handleDeleted} className="delete-comment-btn">
+            <img src="/src/images/posticons/delete-icon.svg" />
         </button>
     ) : null;
 };

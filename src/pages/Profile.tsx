@@ -1,6 +1,6 @@
 import { useEffect, useState, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { AuthContext } from '../context/AuthProvider';
+import { AuthContext, defaultAuth } from '../context/AuthProvider';
 import http from '../utils/http';
 import Masonry from 'react-masonry-css';
 
@@ -12,12 +12,21 @@ interface PostType {
 }
 
 const Profile = () => {
-    const { auth} = useContext(AuthContext);
+    const { auth, setAuth } = useContext(AuthContext);
     const [userPosts, setUserPosts] = useState<PostType[]>([]);
     const [isLoading, setIsLoading] = useState(true); 
     const { state } = useLocation();
     const message = state?.message;
     const BASE_URL = 'http://localhost';
+
+    const getInitialAuth = async () => {
+        try {
+            const response = await http.get('/auth/user');
+            setAuth({ ...response.data });
+        } catch {}
+    };
+
+    useEffect(() => void getInitialAuth(), []);
 
     useEffect(() => {
         const fetchUserPosts = async () => {
@@ -38,6 +47,13 @@ const Profile = () => {
     }, [auth.id]);
 
 
+    const handleLogout = async () => {
+        try {
+            await http.get('/auth/logout');
+            setAuth(defaultAuth);
+        } catch {}
+    };
+
     // Breakpoints für das Masonry-Layout
     const breakpointColumnsObj = {
         default: 3,
@@ -52,11 +68,21 @@ const Profile = () => {
             {message && <div className="success">{message}</div>}
             <div className="link-to-edit-container">
                     <div className="profile-user">
-                        <img src={`${BASE_URL}/${auth.profile_image}`} alt="Profilbild" className="profile-profile-image" />
+                    <img src={auth.profile_image ? `${BASE_URL}/${auth.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="profile-profile-image" />
                         <h2>{auth.username}</h2>
                     </div>
-                    <Link className="link-to-edit" to="/edit-profile"><img src="./src/images/edit.svg" /></Link>
-                    
+                    <Link className="link-to-edit" to="/edit-profile"><img src="./src/images/edit.svg" /></Link>    
+                </div>
+                <div className="mobile-profile-logout">
+                {
+                auth.id ? (
+                    <div >
+                        <button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>
+                    </div>
+                    ) : (
+                        <></>
+                    )
+                }
                 </div>
                 <div>
                     <h2>Meine Posts</h2>

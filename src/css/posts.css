@@ -9,6 +9,7 @@
     padding: 80px 100px;
     background-color: rgba(128, 128, 128, 0.162);
     border-radius: 20px;
+    box-sizing: border-box;
 }
 
 .post-link-btn {
@@ -58,6 +59,7 @@
     padding: 5px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
+    box-sizing: border-box;
 }
 
 .image-and-camera-container {
@@ -73,7 +75,6 @@
 .post-image {
     grid-area: image;
     width: 100%;
-    height: 100%;
 }
 
 .user-post {
@@ -123,20 +124,24 @@
 }
 
 
+
+
+/* Kommentare */
+
 .comments-section {
     padding: 80px 100px;
     background-color: rgba(128, 128, 128, 0.162);
     border-radius: 20px;
-    width: fit-content;
+    max-width: 500px;
 }
-
 
 .comment-form-container {
     width: 500px;
 }
 
 .comment-form-container textarea {
-    width: calc(100% - 24px);
+    width: 100%;
+    box-sizing: border-box;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
     height: 100px;
@@ -163,14 +168,33 @@ textarea:focus {
 }
 
 .comment {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.comment-content {
     border: 1px solid #9B9B9B;
     background-color: #2e323737;
     border-radius: 20px;
     min-width: fit-content;
-    width: 400px;
     padding: 10px 40px 10px 10px;
     text-align: center;
     position: relative;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.reply {
+    border: 1px solid #000a56;
+    background-color: #2e323737;
+    border-radius: 20px;
+    min-width: fit-content;
+    padding: 10px 40px 10px 10px;
+    text-align: center;
+    position: relative;
+    margin-bottom: 10px;
 }
 
 .comment-user {
@@ -204,6 +228,62 @@ textarea:focus {
     width: 100%;
 }
 
+.delete-comment-btn {
+    background-color: #ac0000;
+    border-radius: 10px;
+    border: none;
+    padding: 5px 10px;
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    cursor: pointer;
+}
+
+.reply-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 20px;
+    height: 100px;
+    padding: 10px;
+    border-radius: 10px;
+    resize: none;
+}
+
+.reply-btn {
+    font-size: 14px;
+    background-color: transparent;
+    color: #9B9B9B;
+    border: none;
+    cursor: pointer;
+}
+
+.show-replies-btn {
+    font-size: 14px;
+    background-color: transparent;
+    color: #b5b5b5;
+    border: none;
+    cursor: pointer;
+}
+
+.reply-form {
+    position: relative;
+}
+
+.reply-form button {
+    position: absolute;
+    right: 4px;
+    bottom: 5px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+
+
+
+/* Post bearbeiten */
+
 .edit-post-form {
     display: flex;
     flex-direction: column;
@@ -235,7 +315,11 @@ textarea:focus {
     color: white;
   }
 
-@media (max-width: 750px) {
+
+
+
+
+@media (max-width: 1500px) {
     .show-post-container {
         align-items: center;
         gap: 40px;
@@ -246,19 +330,63 @@ textarea:focus {
         height:auto
     }
 
-    .comment-form-container {
-        padding: 0px 20px;
-    }
 
     .comment-form-container textarea{
         max-width: 100%;
     }
 
-    .comment {
-        width: 80%;
-    }
 
     h2 {
         text-align: center;
+    }
+
+
+
+    .image-and-camera-container {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        height: fit-content;
+        margin: 20px 0px;
+    }
+
+    .camera-settings-section {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        font-size: 21px;
+    }
+
+
+    .comment-form-container {
+        max-width: 100%;
+    }
+
+    .comments-section {
+        padding: 20px 20px 100px 20px;
+    }
+
+    .comment-content {
+        width: 100%;
+    }
+
+    .post-form-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    h2 {
+        width: 100%;
+        text-align: center;
+    }
+
+    .create-post-form {
+        padding: 20px;
+        box-sizing: border-box;
+        border-radius: 0px;
+        padding-bottom: 140px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
   }

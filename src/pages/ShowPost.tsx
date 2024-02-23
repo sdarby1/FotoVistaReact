@@ -5,6 +5,8 @@ import { AuthContext } from '../context/AuthProvider';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import DeletePostButton from '../components/AdminDeletePosts';
 import DeleteCommentButton from '../components/AdminDeleteComments';
+import ReplyComponent from '../components/ReplyComponent';
+import DeleteReplyButton from '../components/AdminDeleteReply';
 
 
 interface UserType {
@@ -13,11 +15,25 @@ interface UserType {
     profile_image: string | null;
 }
 
+interface ReplyType {
+    id: number;
+    commentId: number;
+    parentId: number | null;
+    comment: CommentType;
+    body: string;
+    user: UserType;
+    created_at: string;
+    replies?: ReplyType[];
+}
+
 interface CommentType {
     id: number;
     body: string;
     user: UserType;
     created_at: string;
+    showReply?: boolean; 
+    replies?: ReplyType[];
+    showReplies?: boolean; // Neues Feld hinzugefügt
 }
 
 interface PostType {
@@ -76,23 +92,32 @@ const ShowPost = () => {
         fetchPost();
     }, [postId]);
 
+    const fetchComments = async () => {
+        try {
+            const response = await http.get(`/posts/${postId}/comments`);
+            const fetchedComments = response.data.comments.map(comment => ({
+                ...comment,
+                showReplies: false, // Initialisiere showReplies als false
+                replies: comment.replies ? comment.replies.map(reply => ({
+                    ...reply,
+                    // Hier könntest du weitere Initialisierungen durchführen, falls nötig
+                })) : []
+            }));
+            setComments(fetchedComments);
+            setIsLoadingComments(false);
+        } catch (err) {
+            console.error('Fehler beim Laden der Kommentare', err);
+            setIsLoadingComments(false)
+        }
+    };
+    
+
+    // Schritt 2: Rufe `fetchComments` innerhalb des useEffect Hooks auf
     useEffect(() => {
-        const fetchComments = async () => {
-            try {
-                const response = await http.get(`/posts/${postId}/comments`);
-                const fetchedComments = response.data.comments;
-                console.log('Fetched Comments:', fetchedComments);
-                setComments(fetchedComments || []); 
-                setIsLoadingComments(false);
-
-            } catch (err) {
-                console.error('Fehler beim Laden der Kommentare', err);
-                setIsLoadingComments(false);
-            }
-        };
-
         fetchComments();
-    }, [postId]);
+    }, [postId]); // Abhängigkeiten für useEffect
+
+
 
     const handleCommentSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
@@ -123,24 +148,67 @@ const ShowPost = () => {
         }
     };
     
+
     const [successMessage, setSuccessMessage] = useState('');
+
 
     const handleCommentDeleted = (commentId: number) => {
         setComments(currentComments => currentComments?.filter(comment => comment.id !== commentId));
         setSuccessMessage('✅ Kommentar erfolgreich gelöscht.');
         setTimeout(() => setSuccessMessage(''), 5000); 
     };
+
+    const handleReplyDeleted = (deletedReplyId: number) => {
+        setComments(comments.map(comment => ({
+            ...comment,
+            replies: comment.replies?.filter(reply => reply.id !== deletedReplyId)
+        })));
+        setSuccessMessage('✅ Antwort erfolgreich gelöscht.');
+        setTimeout(() => setSuccessMessage(''), 5000); 
+    }; 
     
 
+
+    const toggleReplyField = (commentId: number) => {
+        setComments(comments.map(comment => 
+            comment.id === commentId ? { ...comment, showReply: !comment.showReply } : comment
+        ));
+    };
+
+
+    const toggleRepliesVisibility = (commentId: number) => {
+        setComments(comments.map(comment => 
+            comment.id === commentId ? { ...comment, showReplies: !comment.showReplies } : comment
+        ));
+    };
+
+    const findParentUsername = (parentId, allComments) => {
+        for (const comment of allComments) {
+          if (comment.id === parentId) {
+            return comment.user.username; 
+          }
+          for (const reply of comment.replies || []) {
+            if (reply.id === parentId) {
+              return reply.user.username; 
+            }
+          }
+        }
+        return null; // Falls keine Übereinstimmung gefunden wurde
+      };
+
+    
+    
     if (isLoadingPost || isLoadingComments) {
-        return <div className="loading-container">
+        return <div className="loader-container">
                     <div className="loader"></div>
                </div>
     }
 
+
     if (error) {
         return <div>{error}</div>;
     }
+
 
     return (
         <div>
@@ -150,7 +218,7 @@ const ShowPost = () => {
                     <h1>{post.title}</h1>
                     <Link to={`/user/${post.user.id}`} className="post-link-btn">
                         <div className="post-user">
-                            <img src={`${BASE_URL}/${post.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />
+                        <img src={post.user.profile_image ? `${BASE_URL}/${post.user.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="profile-image" />
                             {post.user.username}
                         </div>
                     </Link>
@@ -201,10 +269,12 @@ const ShowPost = () => {
                 <div>Post nicht gefunden.</div>
             )}
 
+
             {auth.id ? ( 
                 <div className="comments-section">
                     {successMessage && <div className="success">{successMessage}</div>}
                     <h2>Kommentare</h2>
+
                     <form className="comment-form" onSubmit={handleCommentSubmit}>
                         <div className="comment-form-container">
                             <textarea
@@ -215,24 +285,60 @@ const ShowPost = () => {
                             <button className="submit-btn" type="submit">Kommentar absenden</button>
                         </div>
                     </form>
+
                     <div className="comment-section">
                     {comments.map((comment) => (
                         <div key={comment.id} className="comment">
-                            <Link to={`/user/${comment.user.id}`} className="post-link-btn">
-                                <div className="comment-user">
-                                    <img src={`${BASE_URL}/${comment.user.profile_image}`} alt="Profilbild" className="comment-profile-image" />    
-                                    <p><strong>{comment.user.username}</strong></p>    
-                                </div>   
-                            </Link>     
-                            <p>{comment.body}</p>    
-                            <p><span className="comment-date">{formatCommentDate(comment.created_at)}</span></p>
-                            <DeleteCommentButton commentId={comment.id} onCommentDeleted={handleCommentDeleted} />
-                        </div>
-                    ))}
+                            <div className="comment-content">
+                                <Link to={`/user/${comment.user.id}`} className="post-link-btn">
+                                    <div className="comment-user">
+                                        <img src={comment.user.profile_image ? `${BASE_URL}/${comment.user.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="comment-profile-image" />
+                                        <p><strong>{comment.user.username}</strong></p>    
+                                    </div>   
+                                </Link>     
+                                <p>{comment.body}</p>    
+                                <p><span className="comment-date">{formatCommentDate(comment.created_at)}</span></p>
+                                <DeleteCommentButton commentId={comment.id} onCommentDeleted={handleCommentDeleted} />
+                                <button className="reply-btn" onClick={() => toggleReplyField(comment.id)}>Antworten</button>
+                            </div>   
+
+                            <button className="show-replies-btn" onClick={() => toggleRepliesVisibility(comment.id)}>
+                                {comment.showReplies ? "Antworten ausblenden" : `Antworten anzeigen (${comment.replies?.length || 0})`}
+                            </button>  
+
+                            {comment.showReply && <ReplyComponent commentId={comment.id} onReplyAdded={() => fetchComments()}/>}
+                                {comment.replies && comment.showReplies && comment.replies.length > 0 && ( 
+                                    <div className="replies">
+                                    {comment.replies?.map((reply) => (
+                                      <div key={reply.id} className="reply">
+                                        <Link to={`/user/${reply.user.id}`} className="post-link-btn">
+                                          <div className="comment-user">
+                                            <img src={reply.user.profile_image ? `${BASE_URL}/${reply.user.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="comment-profile-image" />
+                                            <p><strong>{reply.user.username}</strong></p>
+                                          </div>
+                                        </Link>
+                                        {reply.parentId && (
+                                          <p className="reply-to">Antwort auf {findParentUsername(reply.parentId, comments)}</p>
+                                        )}
+                                        <p><Link to= {`/user/${comment.user.id}`} className='link-btn'>@{comment.user.username}</Link> {reply.body}</p>
+                                        <p><span className="comment-date">{formatCommentDate(reply.created_at)}</span></p>
+                                        <DeleteReplyButton  replyId={reply.id} onReplyDeleted={handleReplyDeleted} />
+                                      </div>
+                                    ))}
+                                  </div>
+                                    
+)}
+</div>
+))}
+
                 </div>
                 </div>
             ) : (
-                <div>Du musst angemeldet sein, um die Kommentare zu sehen.</div>
+                <div>
+                    <p className="link-text">
+                        <Link to="/login" className="link-btn">Melde dich doch an</Link> , um dich mit anderen auszutauschen
+                    </p>
+                </div>
             )}  
             </div>      
               

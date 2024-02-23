@@ -1,0 +1,64 @@
+.search-bar {
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    margin-right: 10px;
+}
+
+.searchbar {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
+    padding: 8px 20px;
+    font-weight: normal;
+    border: none;
+}
+
+.search-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px 8px;
+}
+
+.search-results {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.search-user {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.search-user-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    gap: 20px;
+    font-size: 20px;
+}
+
+.search-post-container {
+    position: relative;
+    width: 40%;
+}
+
+.search-posts-title {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    background-color: black;
+    padding: 5px 10px;
+    margin: 0px;
+}
+
+.search-posts-image {
+    max-width: 100%;
+    display: block;
+}

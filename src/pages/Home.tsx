@@ -1,4 +1,15 @@
 const Home = () => {
+    const handleScrollClick = (e) => {
+      e.preventDefault(); // Verhindert die Standard-Linkaktion
+      const targetId = e.currentTarget.getAttribute("href").slice(1); // Entfernt das #, um die ID zu bekommen
+      const targetElement = document.getElementById(targetId);
+
+      if (targetElement) {
+        // Verwendet scrollIntoView, um zum Ziel-Element zu scrollen
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    };
+
   return (
     <>
       <div className="home-headlines">
@@ -13,9 +24,9 @@ const Home = () => {
 
       <img className="home-background-image" src="../src/images/home/home-background-image.png" />
 
-      <a href="#create-post-preview" className="home-scroll-down-btn">
+      <a href="#create-post-preview" className="home-scroll-down-btn" onClick={handleScrollClick}>
         <div className="scroll-down">
-          <img  src="../src/images/home/scroll-down.svg" />
+          <img src="../src/images/home/scroll-down.svg" alt="Scroll-Down" />
         </div>
       </a>
 

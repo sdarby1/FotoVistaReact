@@ -55,6 +55,7 @@ input:focus {
     border-radius: 10px;
     cursor: pointer;
     transition: all 0.4s;
+    box-sizing: border-box;
 }
 
 .link-text {
