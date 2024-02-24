@@ -71,8 +71,9 @@ const Profile = () => {
                     <img src={auth.profile_image ? `${BASE_URL}/${auth.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="profile-profile-image" />
                         <h2>{auth.username}</h2>
                     </div>
-                    <Link className="link-to-edit" to="/edit-profile"><img src="./src/images/edit.svg" /></Link>    
-                </div>
+                    <Link className="link-to-edit" to="/edit-profile"><img src="./src/images/edit.svg" /></Link>  
+                    <Link className="follow-btn" to="/following">Gefolgte Nutzer</Link>  
+                </div>  
                 <div className="mobile-profile-logout">
                 {
                 auth.id ? (

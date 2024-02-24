@@ -102,6 +102,65 @@
     display: block;
 }
 
+.user-profile-headline-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.user-profile-user-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    gap: 20px;
+}
+
+.user-profile-user-container h2{
+    margin: 0px;
+}
+
+.follow-btn {
+    font-size: 20px;
+    background-color: transparent;
+    color: #9B9B9B;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.no-posts, .no-following {
+    font-size: 20px;
+}
+
+.following-container {
+    margin-top: 50px;
+    padding: 80px 100px;
+    background-color: rgba(128, 128, 128, 0.162);
+    border-radius: 20px;
+}
+
+.following-list {
+    margin: 0px;
+    padding: 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+
+.following-list  li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    width: fit-content;
+}
+
 @media (max-width: 1690px) {
     .mobile-profile-logout {
         display: block;

@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import http from '../utils/http'; // Deinen HTTP-Client anpassen
 import Masonry from 'react-masonry-css';
+import FollowButton from '../components/FollowButtonComponent';
 
 interface PostType {
     id: number;
@@ -67,7 +68,11 @@ const UserProfile = () => {
                 </div>
             ) : (
                 <div>
-                    <h2>Profil von <img src={`${BASE_URL}/${user?.profile_image}`} alt="Profilbild" className="profile-profile-image" />{user?.username}</h2>
+                    <div className="user-profile-headline-container">
+                        <h2 className="user-profile-headline">Profil von</h2>
+                        <div className="user-profile-user-container"><img src={`${BASE_URL}/${user?.profile_image}`} alt="Profilbild" className="profile-profile-image" /><h2>{user?.username}</h2></div>
+                        <FollowButton profileUserId={userId} />
+                    </div>
                     <Masonry
                          breakpointCols={breakpointColumnsObj}
                          className="my-posts-container"

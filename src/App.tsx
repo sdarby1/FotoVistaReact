@@ -17,6 +17,7 @@ import EditProfile from "./pages/EditProfile";
 import EditPost from "./pages/EditPost";
 import UserProfile from "./pages/UserProfile";
 import SearchResultsPage from "./pages/SearchResults";
+import FollowingPage from "./pages/FollowingPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -40,6 +41,7 @@ const router = createBrowserRouter(
         <Route element={<PrivateLayout />}>
           <Route path="/profile" element={<Profile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/following" element={<FollowingPage />} />
         </Route>
 
         <Route element={<PrivateLayout />}>
