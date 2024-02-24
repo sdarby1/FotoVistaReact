@@ -76,7 +76,7 @@ const Login = () => {
 
            <div className="form-group">
             <label htmlFor="email">EMail</label> 
-            <input type="email" autoComplete="off" aria-invalid={errors.email ? "true" : "false"}
+            <input id="email" type="email" autoComplete="off" aria-invalid={errors.email ? "true" : "false"}
              {...register("email", {
                 required: {
                     value: true,
@@ -92,7 +92,7 @@ const Login = () => {
 
            <div className="form-group">
             <label htmlFor="password">Passwort</label> 
-            <input type="password" aria-invalid={errors.password ? "true" : "false"}
+            <input id="password" type="password" aria-invalid={errors.password ? "true" : "false"}
             {...register("password", {
                  required: {
                     value: true,

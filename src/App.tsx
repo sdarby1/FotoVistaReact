@@ -1,4 +1,4 @@
-import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, RouterProvider, Route, BrowserRouter} from "react-router-dom";
 
 import RootLayout from "./layouts/RootLayout";
 
@@ -20,8 +20,11 @@ import SearchResultsPage from "./pages/SearchResults";
 import FollowingPage from "./pages/FollowingPage";
 
 const router = createBrowserRouter(
+
+
   createRoutesFromElements(
     <>
+    <BrowserRouter>
       <Route path="/" element={<RootLayout />} errorElement={<RootError />}>
 
         <Route index element={<Home />} />
@@ -52,7 +55,7 @@ const router = createBrowserRouter(
         <Route path="*" element={<NotFound />}/>
 
       </Route>
-      
+      </BrowserRouter>
     </>
   )
 );
