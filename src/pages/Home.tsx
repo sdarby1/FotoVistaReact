@@ -29,12 +29,12 @@ const Home = () => {
         <h3 className="home-sub-headline"><div></div>Lass dich inspirieren<div></div></h3>
         <a href="#create-post-preview" className="home-scroll-down-btn" onClick={handleScrollClick}>
         <div className="scroll-down">
-          <img src="../src/images/home/scroll-down.svg" alt="Scroll-Down" />
+          <img src="../src/images/home/scroll-down.svg" alt="Scroll down Icon" />
         </div>
       </a>
       </div>
 
-      <img className="home-background-image" src="../src/images/home/home-background-image.png" />
+      <img className="home-background-image" src="../src/images/home/home-background-image.png" alt="Background Image"/>
 
 
       <div id="create-post-preview">
@@ -42,7 +42,7 @@ const Home = () => {
           Teile deine Fotografie- <br></br>
           erfahrungen 📸
         </h2>
-        <img src="../src/images/home/create-post-preview.png" />
+        <img src="../src/images/home/create-post-preview.png" alt="Preview of the Post Feature"/>
       </div>
 
       <div id="comment-preview">
@@ -50,7 +50,7 @@ const Home = () => {
           Tausche dich mit <br></br>
           anderen aus 💬
         </h2>
-        <img src="../src/images/home/comment-preview.png" />
+        <img src="../src/images/home/comment-preview.png" alt="Preview of the comment Feature"/>
       </div>
     </>
   )

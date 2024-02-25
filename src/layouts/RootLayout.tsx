@@ -26,7 +26,7 @@ const RootLayout = () => {
   return (
     <>
         <header>
-            <a href="/"><div className="logo-container"><img src="/src/images/logo.svg"></img></div></a>
+            <a href="/"><div className="logo-container"><img src="/src/images/logo.svg" alt="logo"></img></div></a>
 
             <nav>
                 <ul>
