@@ -3,7 +3,11 @@ import { useNavigate } from 'react-router-dom';
 import { AuthContext, defaultAuth } from '../context/AuthProvider';
 import http from '../utils/http';
 
-const DeleteUser = () => {
+type DeleteUserProps = {
+    isSubmitting: boolean;
+};
+
+const DeleteUser = ({ isSubmitting }: DeleteUserProps) => {
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
 
@@ -21,8 +25,12 @@ const DeleteUser = () => {
     };
 
     return (
-        <button onClick={handleDelete} className="delete-profile-btn">
-            Konto löschen
+        <button
+            onClick={handleDelete}
+            className={`delete-profile-btn ${isSubmitting ? 'submitting' : ''}`}
+            disabled={isSubmitting}
+        >
+            {isSubmitting ? 'Löschen läuft...' : 'Konto löschen'}
         </button>
     );
 };

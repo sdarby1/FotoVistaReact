@@ -75,7 +75,6 @@ const ShowPost = () => {
             try {
                 const response = await http.get(`/posts/${postId}`);
                 const fetchedPost = response.data.post;
-                console.log('Fetched Post:', fetchedPost);
                 if (typeof fetchedPost === 'object' && fetchedPost !== null && typeof fetchedPost.id === 'number') {
                     setPost({ ...fetchedPost, comments: fetchedPost.comments || [] });
                     setIsLoadingPost(false);
@@ -96,12 +95,11 @@ const ShowPost = () => {
     const fetchComments = async () => {
         try {
             const response = await http.get(`/posts/${postId}/comments`);
-            const fetchedComments = response.data.comments.map(comment => ({
+            const fetchedComments: CommentType[] = response.data.comments.map((comment: CommentType) => ({
                 ...comment,
-                showReplies: false, // Initialisiere showReplies als false
-                replies: comment.replies ? comment.replies.map(reply => ({
+                showReplies: false,
+                replies: comment.replies ? comment.replies.map((reply: ReplyType) => ({
                     ...reply,
-                    // Hier könntest du weitere Initialisierungen durchführen, falls nötig
                 })) : []
             }));
             setComments(fetchedComments);
@@ -112,11 +110,11 @@ const ShowPost = () => {
         }
     };
     
+    
 
-    // Schritt 2: Rufe `fetchComments` innerhalb des useEffect Hooks auf
     useEffect(() => {
         fetchComments();
-    }, [postId]); // Abhängigkeiten für useEffect
+    }, [postId]); 
 
 
 
@@ -183,7 +181,7 @@ const ShowPost = () => {
         ));
     };
 
-    const findParentUsername = (parentId, allComments) => {
+    const findParentUsername = (parentId: number | null, allComments: CommentType[]) => {
         for (const comment of allComments) {
           if (comment.id === parentId) {
             return comment.user.username; 
@@ -194,7 +192,7 @@ const ShowPost = () => {
             }
           }
         }
-        return null; // Falls keine Übereinstimmung gefunden wurde
+        return null; 
       };
 
     
@@ -218,7 +216,9 @@ const ShowPost = () => {
                 <div className="show-post-container">
                     <div className="post-title-container">
                         <h1 className="post-headline">{post.title}</h1>
+                        {auth.id ? ( 
                         <LikesComponent postId={post.id} />
+                        ) : null}
                     </div>
                     <Link to={`/user/${post.user.id}`} className="post-link-btn">
                         <div className="post-user">
@@ -226,7 +226,7 @@ const ShowPost = () => {
                             {post.user.username}
                         </div>
                     </Link>
-                        <DeletePostButton postId={post?.id} postTitle={post?.title} />
+                    <DeletePostButton postId={post?.id} postTitle={post?.title} />                       
                     <div className="image-and-camera-container">
 
                         <img className="post-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
@@ -338,7 +338,7 @@ const ShowPost = () => {
                 </div>
                 </div>
             ) : (
-                <div>
+                <div className="comments-section">
                     <p className="link-text">
                         <Link to="/login" className="link-btn">Melde dich doch an</Link> , um dich mit anderen auszutauschen
                     </p>

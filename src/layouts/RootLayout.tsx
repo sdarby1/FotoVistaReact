@@ -1,10 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { NavLink, Outlet, Link } from 'react-router-dom';
-import { AuthContext, /*defaultAuth*/ } from '../context/AuthProvider';
+import { AuthContext } from '../context/AuthProvider';
 import http from '../utils/http';
 import MobileNav from '../components/MobileNav';
 import SearchComponent from '../components/SearchComponent';
-// import Searchbar from '../components/Searchbar';
 
 
 
@@ -21,12 +20,6 @@ const RootLayout = () => {
 
     useEffect(() => void getInitialAuth(), []);
 
-   /* const handleLogout = async () => {
-        try {
-            await http.get('/auth/logout');
-            setAuth(defaultAuth);
-        } catch {}
-    }; */
     
     const BASE_URL = 'http://localhost'; 
 
@@ -51,7 +44,6 @@ const RootLayout = () => {
                         <SearchComponent />
                         <img src={auth.profile_image ? `${BASE_URL}/${auth.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="profile-image" />
                         <p className="username">{auth.username}</p> 
-                        {/*<button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>*/}
                     </div>
                     ) : ( <div className="user-container">
                         <Link to="/login" className="sign-in-btn">Einloggen</Link> 
@@ -65,6 +57,13 @@ const RootLayout = () => {
         </main>
         <footer>
             Copyright © 2024 FotoVista Alle Rechte vorbehalten.
+            <div className="footer-links">
+                <a href="http://">Impressum</a>
+                |
+                <a href="http://">Datenschutzrichtlinien</a>
+                |
+                <a href="http://">Cookies</a>
+            </div>
         </footer>
     </>
   )

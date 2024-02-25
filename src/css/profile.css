@@ -99,7 +99,10 @@
 }
 
 .mobile-profile-logout {
-    display: block;
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
 }
 
 .user-profile-headline-container {
@@ -161,9 +164,31 @@
     width: fit-content;
 }
 
+.edit-post-btn {
+    background-color: black;
+    color: white;
+    width: fit-content;
+    padding: 10px 5px 10px 10px;
+    position: absolute;
+    border-bottom-right-radius: 10px;
+    top: 0px;
+    left: 0px;
+    margin: 0px;
+    text-decoration: none;
+    z-index: 20;
+}
+
+.edit-post-btn img {
+    height: 30px;
+}
+
 @media (max-width: 1690px) {
     .mobile-profile-logout {
-        display: block;
+        display: flex;
+    }
+
+    .profile-container {
+        padding-bottom: 180px ;
     }
 }
 
@@ -179,8 +204,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 40px 40px 80px 40px;
+        padding: 40px 40px 180px 40px;
         border-radius: 0;
+        box-sizing: border-box;
+    }
+
+    .user-profile-headline-container {
+        flex-direction: column;
     }
 
     .profile-user h2 {

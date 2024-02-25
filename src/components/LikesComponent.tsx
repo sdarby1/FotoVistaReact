@@ -5,6 +5,10 @@ interface LikesProps {
   postId: number;
 }
 
+interface LikeIconProps {
+  isLiked: boolean;
+}
+
 const LikesComponent: React.FC<LikesProps> = ({ postId }) => {
   const [likesCount, setLikesCount] = useState<number>(0);
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -41,7 +45,7 @@ const LikesComponent: React.FC<LikesProps> = ({ postId }) => {
     }
   };
 
-  const LikeIcon = ({ isLiked }) => {
+  const LikeIcon: React.FC<LikeIconProps> = ({ isLiked }) => {
     return (
       <svg xmlns="http://www.w3.org/2000/svg" width="26.986" height="29.257" viewBox="0 0 26.986 29.257">
         <path

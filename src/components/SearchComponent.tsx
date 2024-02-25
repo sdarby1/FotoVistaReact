@@ -6,7 +6,7 @@ const SearchComponent = () => {
     const [query, setQuery] = useState('');
     const navigate = useNavigate();
 
-    const handleSearch = (e) => {
+    const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         navigate(`/search-results?q=${query}`);
     };

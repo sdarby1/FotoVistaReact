@@ -16,15 +16,15 @@ const Discover = () => {
     const [isLoading, setIsLoading] = useState(true); 
     const BASE_URL = 'http://localhost';
     const { state } = useLocation();
-    const message = state?.message; // Zugriff auf die Nachricht
-    const [sortOrder, setSortOrder] = useState('newest'); // Standardmäßig auf "neueste zuerst" gesetzt
+    const message = state?.message; 
+    const [sortOrder, setSortOrder] = useState('newest'); 
 
 
     useEffect(() => {
         const fetchAllPosts = async () => {
             setIsLoading(true); 
             try {
-                const response = await http.get(`/post/sort?order=${sortOrder}`); // Verwende die neue Route
+                const response = await http.get(`/post/sort?order=${sortOrder}`); 
                 setAllPosts(response.data.posts);
             } catch (err) {
                 console.error('Fehler beim Laden der Posts', err);
@@ -34,7 +34,7 @@ const Discover = () => {
         };
     
         fetchAllPosts();
-    }, [sortOrder]); // Füge sortOrder zu den Abhängigkeiten hinzu
+    }, [sortOrder]); 
     
 
     const breakpointColumnsObj = {

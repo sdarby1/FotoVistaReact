@@ -72,16 +72,16 @@ const Profile = () => {
                         <h2>{auth.username}</h2>
                     </div>
                     <Link className="link-to-edit" to="/edit-profile"><img src="./src/images/edit.svg" /></Link>  
-                    <Link className="follow-btn" to="/following">Gefolgte Nutzer</Link>  
                 </div>  
                 <div className="mobile-profile-logout">
                 {
                 auth.id ? (
-                        <button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>
+                        <button onClick={handleLogout} className="sign-out-btn">Ausloggen</button>                   
                     ) : (
                         <></>
                     )
                 }
+                  <Link className="follow-btn" to="/following">Gefolgte Nutzer</Link>  
                 </div>
                 <div>
                     <h2>Meine Posts</h2>
@@ -100,9 +100,9 @@ const Profile = () => {
                                     <div className="all-user-post">
                                         <h3 className="show-user-posts-title">{post.title}</h3>
                                         <img className="show-all-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
-                                    </div>
-                                    <Link to={`/edit-post/${post.id}`} className="link-btn">Bearbeiten</Link>
-                                </Link>
+                                        <Link to={`/edit-post/${post.id}`} className="edit-post-btn"><img src="./src/images/edit.svg" /></Link>   
+                                    </div>                                                              
+                                </Link>                               
                             ))}
                         </Masonry>
                     ) : (

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import http from '../utils/http'; // Deinen HTTP-Client anpassen
+import http from '../utils/http'; 
 import Masonry from 'react-masonry-css';
 import FollowButton from '../components/FollowButtonComponent';
 
@@ -17,14 +17,14 @@ const UserProfile = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState<{username?: string, profile_image?: string} | null>(null);
 
-    const BASE_URL = 'http://localhost'; // Deine Basis-URL anpassen
+    const BASE_URL = 'http://localhost'; 
 
     useEffect(() => {
         const fetchUserPosts = async () => {
             setIsLoading(true);
             try {
                 const response = await http.get(`/users/${userId}/posts`);
-                setUser(response.data.user); // Speichere Benutzerdaten
+                setUser(response.data.user);
                 setUserPosts(response.data.posts);
                 setIsLoading(false);
             } catch (err) {
@@ -39,7 +39,6 @@ const UserProfile = () => {
             setIsLoading(true);
             try {
                 const userResponse = await http.get(`/user/${userId}`);
-                // Da die Benutzerdaten direkt im Hauptobjekt liegen, passe die Zuweisung an
                 setUser({
                     username: userResponse.data.username,
                     profile_image: userResponse.data.profile_image
@@ -79,7 +78,7 @@ const UserProfile = () => {
                          columnClassName="masonry-grid_column"
                     >
                         {userPosts.map((post) => (
-                            <Link key={post.id} to={`/posts/${post.id}`} className="post-link-btn"> {/* key hier hinzugefügt */}
+                            <Link key={post.id} to={`/posts/${post.id}`} className="post-link-btn">
                                 <div className="all-user-post">
                                     <h3 className="show-user-posts-title">{post.title}</h3>
                                     <img className="show-all-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />

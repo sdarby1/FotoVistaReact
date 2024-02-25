@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import http from '../utils/http';
 import DeletePost from '../components/DeletePost';
 
-// Stellen Sie sicher, dass Sie die Struktur Ihrer Post-Daten anpassen
+
 interface FormValues {
   id: number;
   title: string;
@@ -25,19 +25,19 @@ const EditPost = () => {
 
   useEffect(() => {
     const fetchPost = async () => {
+      setIsLoading(true);
       try {
         const response = await http.get(`/posts/${postId}`);
         const postData = response.data.post;
-        // Vorbelegen der Formularfelder mit den Post-Daten
         Object.keys(postData).forEach(key => {
           setValue(key as keyof FormValues, postData[key]);
         });
-        setIsLoading(false);
       } catch (err) {
         console.error('Fehler beim Laden des Posts:', err);
         setSubmitError('Post konnte nicht geladen werden.');
-        setIsLoading(false);
-      }
+      } finally {
+        setIsLoading(false); 
+    }
     };
 
     fetchPost();
@@ -53,11 +53,15 @@ const EditPost = () => {
     }
   };
 
-  if (isLoading) return 
-  <div className="loader-container">
-    <div className="loader"></div>
-  </div>;
-  if (submitError) return <div className="error">{submitError}</div>;
+  if (isLoading) {
+    return (
+        <div className="loader-container">
+            <div className="loader"></div>
+        </div>
+    );
+}
+
+if (submitError) return <div className="error">{submitError}</div>;
 
   return (
     <div className="form-container">

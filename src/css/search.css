@@ -42,6 +42,11 @@
     width: fit-content;
     gap: 20px;
     font-size: 20px;
+    color: white;
+}
+
+.search-user-container p {
+    text-decoration: none;
 }
 
 .search-post-container {
@@ -61,4 +66,20 @@
 .search-posts-image {
     max-width: 100%;
     display: block;
+}
+
+.search-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+@media (max-width: 1000px) {
+    .search-results {
+        padding: 40px 40px 100px 40px;
+    }
+
+    .search-post-container {
+        width: 100%;
+    }
 }

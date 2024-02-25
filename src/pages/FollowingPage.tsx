@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../context/AuthProvider'; // Pfad entsprechend anpassen
+import { AuthContext } from '../context/AuthProvider'; 
 import http from '../utils/http';
 import FollowButtonComponent from '../components/FollowButtonComponent';
 
 interface User {
   id: number;
   username: string;
-  profile_image?: string; // Optional, wenn nicht jeder Benutzer ein Bild hat
+  profile_image?: string; 
 }
 
 const FollowingPage = () => {
@@ -20,7 +20,7 @@ const FollowingPage = () => {
         const fetchFollowingUsers = async () => {
             setIsLoading(true);
             try {
-                const response = await http.get(`/users/me/following`); // Verwendet die auth.id
+                const response = await http.get(`/users/me/following`); 
                 setFollowingUsers(response.data.following);
             } catch (error) {
                 console.error('Fehler beim Laden der gefolgten Benutzer', error);
@@ -48,7 +48,7 @@ const FollowingPage = () => {
                             <Link to={`/user/${user.id}`}>
                                 <div className="search-user-container">
                                     <img src={user.profile_image ? `${BASE_URL}/${user.profile_image}` : '/src/images/no-profile-image-icon.svg'} alt="Profilbild" className="profile-profile-image" />
-                                    {user.username}
+                                    <p>{user.username}</p>
                                 </div>                          
                             </Link>
                             <FollowButtonComponent profileUserId={user.id} />

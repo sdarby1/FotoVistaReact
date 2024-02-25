@@ -87,7 +87,7 @@ const EditProfile = () => {
                 >
                     {isSubmitting ? 'Aktualisierung läuft...' : 'Profil aktualisieren'}
                 </button>
-                <DeleteUser />         
+                <DeleteUser isSubmitting={isSubmitting}/>         
             </form>
         </div>
     );

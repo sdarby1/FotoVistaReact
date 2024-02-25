@@ -1,7 +1,11 @@
 import { useEffect, useState } from 'react';
 import http from '../utils/http'; // Deinen HTTP-Client anpassen
 
-const FollowButtonComponent = ({ profileUserId }) => {
+interface FollowButtonProps {
+    profileUserId: number; 
+}
+
+const FollowButtonComponent: React.FC<FollowButtonProps> = ({ profileUserId }) => {
     const [isFollowing, setIsFollowing] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 

@@ -3,6 +3,8 @@
     padding: 80px 100px;
     background-color: rgba(128, 128, 128, 0.162);
     border-radius: 20px;
+    box-sizing: border-box;
+    margin-bottom: 80px;
 }
 
 /* Anpassungen für Masonry Layout */
@@ -55,10 +57,14 @@
     border-radius: 10px;
 }
 
-
-
-@media (max-width: 750px) {
+@media (max-width: 1690px) {
     .discover-container {
-        padding: 40px;
+        padding: 40px 40px 100px 40px;
+    }
+}
+
+@media (max-width: 1000px) {
+    .discover-container {
+        border-radius: 0px;
     }
   }

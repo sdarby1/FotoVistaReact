@@ -1,17 +1,56 @@
+html {
+  height: 100%;
+  overflow-x: hidden;
+}
+
 body {
   background: linear-gradient(180deg, #0B0C0D 10%, #353a40 100%);
-  background-repeat: no-repeat ;
-  /* background-color: black; */
+  background-repeat: no-repeat;
+  background-size: cover; 
+  background-attachment: fixed;
   color: white;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 0px;
-  min-height: 100lvh;
+  margin: 0;
   padding: 20px 200px;
+  min-height: 100%;
+  box-sizing: border-box;
   scroll-behavior: smooth;
+  position: relative;
+  overflow-x: hidden;
 } 
 
 #root {
-  scroll-behavior: smooth;
+  flex: 1; 
+  padding: 0; 
+  height: 100%;
+}
+
+main {
+  flex: 1; 
+}
+
+footer {
+  margin-top: auto; 
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-links {
+  display: flex;
+  gap: 10px;
+}
+
+.footer-links a{
+  color: white;
+  text-decoration: none;
 }
 
 ::marker {
@@ -254,7 +293,9 @@ h2 {
 
 
 footer {
-  display: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 

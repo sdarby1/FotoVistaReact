@@ -117,6 +117,7 @@
     bottom: 0px;
     left: 0px;
     margin: 0px;
+    border-top-right-radius: 10px;
 }
 
 .camera-settings-section {
@@ -337,7 +338,16 @@ textarea:focus {
   }
 
 
+  @media (max-width: 900px) {
+    .post-title-container {
+        flex-direction: column;
+        text-align: center;
+    }
 
+    .post-headline {
+        font-size: 3em;
+    }
+  }
 
 
 @media (max-width: 1500px) {
@@ -413,4 +423,6 @@ textarea:focus {
         align-items: center;
         justify-content: center;
     }
+
+  
   }

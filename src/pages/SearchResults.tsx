@@ -1,7 +1,6 @@
-// Importieren Sie die Interfaces, wenn sie in einer separaten Datei definiert sind
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import http from '../utils/http'; // Ihr HTTP-Utility
+import http from '../utils/http'; 
 
 interface User {
     id: number;
@@ -20,7 +19,7 @@ interface SearchResult {
     posts: Post[];
 }
 
-const BASE_URL = 'http://localhost'; // Passen Sie dies entsprechend Ihrer Umgebung an
+const BASE_URL = 'http://localhost'; 
 
 const SearchResultsPage: React.FC = () => {
     const [results, setResults] = useState<SearchResult>({ users: [], posts: [] });
@@ -32,15 +31,14 @@ const SearchResultsPage: React.FC = () => {
         const query = queryParams.get('q');
     
         const fetchSearchResults = async () => {
-            setIsLoading(true); // Start des Ladens
+            setIsLoading(true); 
             try {
                 const response = await http.get(`/search?q=${query}`);
                 setResults(response.data);
             } catch (error) {
                 console.error('Fehler beim Abrufen der Suchergebnisse', error);
-                // Fehlerbehandlung
             } finally {
-                setIsLoading(false); // Ende des Ladens
+                setIsLoading(false); 
             }
         };
     

@@ -1,6 +1,5 @@
 import { useContext, useState } from "react"
 import { useForm } from "react-hook-form"
-import { DevTool } from "@hookform/devtools"
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { AuthContext } from "../context/AuthProvider"
 import http from "../utils/http"
@@ -18,15 +17,13 @@ const Login = () => {
     const { setAuth } = useContext(AuthContext);
     const navigate = useNavigate();
     const { state } = useLocation();
-    const message = state?.message; // Zugriff auf die Nachricht
-    const [backendError, setBackendError] = useState(""); // Zustand für Backend-Fehlermeldung
-
+    const message = state?.message; 
+    const [backendError, setBackendError] = useState("");
 
 
     const form = useForm<FormValues>();
     const {
         register,
-        control,
         handleSubmit,
         formState: { errors, isSubmitting }      
     } = form;
@@ -53,7 +50,6 @@ const Login = () => {
             }
         }
 
-        console.log('Formular Submit');
     };
 
     const onError = () => {
@@ -101,6 +97,10 @@ const Login = () => {
                 minLength: {
                     value: 8,
                     message: "❌ Das Passwort muss mindestens 8 Zeichen lang sein"
+                },
+                maxLength: {
+                    value: 16,
+                    message: "❌ Das Passwort darf nicht länger als 16 Zeichen sein"
                 }
             })}/>
             <p className="error">{errors.password?.message}</p>
@@ -116,7 +116,6 @@ const Login = () => {
 
            <p className="link-text">Du hast noch keinen Account? <Link className="link-btn" to="/register">Registrieren</Link></p>
         </form>
-        <DevTool control= { control } />
     </div>
   )
 }

@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
-import { AuthContext, defaultAuth } from '../context/AuthProvider';
+import { AuthContext } from '../context/AuthProvider';
 import http from '../utils/http';
 
 
