@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import http from '../utils/http'; // Pfad zu deinem HTTP-Client anpassen
+import http from '../utils/http'; 
 import { AuthContext } from '../context/AuthProvider';
 
 interface DeleteReplyButtonProps {

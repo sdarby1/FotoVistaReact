@@ -13,7 +13,6 @@ const FollowButtonComponent: React.FC<FollowButtonProps> = ({ profileUserId }) =
         const checkFollowingStatus = async () => {
             try {
                 const response = await http.get(`/users/${profileUserId}/isFollowing`);
-                console.log('Is Following:', response.data.isFollowing); // Zum Debuggen
                 setIsFollowing(response.data.isFollowing);
             } catch (error) {
                 console.error('Fehler beim Überprüfen des Follow-Status:', error);
@@ -35,7 +34,7 @@ const FollowButtonComponent: React.FC<FollowButtonProps> = ({ profileUserId }) =
             } else {
                 await http.post(`/users/${profileUserId}/follow`);
             }
-            setIsFollowing(!isFollowing); // Den Zustand nach der Aktion umschalten
+            setIsFollowing(!isFollowing); 
         } catch (error) {
             console.error('Fehler beim Folgen/Entfolgen:', error);
         } finally {

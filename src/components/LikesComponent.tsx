@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import http from '../utils/http'; // Stellen Sie sicher, dass dies auf Ihre HTTP-Anforderungsbibliothek verweist
+import http from '../utils/http'; 
 
 interface LikesProps {
   postId: number;
