@@ -24,9 +24,10 @@
 }
 
 .search-results {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 40px;
+    margin-bottom: 120px;
 }
 
 .search-user {
@@ -51,7 +52,7 @@
 
 .search-post-container {
     position: relative;
-    width: 40%;
+    width: 60%;
 }
 
 .search-posts-title {
@@ -74,9 +75,24 @@
     gap: 20px;
 }
 
+
+.mobile-search {
+    display: none;
+}
+
+
+@media (max-width: 1690px) {
+    .mobile-search {
+        display: block;
+    }
+}
+
 @media (max-width: 1000px) {
     .search-results {
-        padding: 40px 40px 100px 40px;
+        padding: 40px 40px 200px 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
     }
 
     .search-post-container {

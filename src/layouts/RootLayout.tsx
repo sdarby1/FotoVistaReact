@@ -27,7 +27,10 @@ const RootLayout = () => {
     <>
         <header>
             <a href="/"><div className="logo-container"><img src="/src/images/logo.svg" alt="logo"></img></div></a>
-
+           { auth.id ? (
+            <div className="mobile-search">
+                <SearchComponent />
+            </div> ) : (null) }
             <nav>
                 <ul>
                     <li><NavLink to="/" className="header-nav-btn">Home</NavLink></li>

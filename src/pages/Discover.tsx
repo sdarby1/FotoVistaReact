@@ -70,7 +70,7 @@ const Discover = () => {
                     {allPosts.map((post) => (
                         <Link key={post.id} to={`/posts/${post.id}`} className="post-link">
                             <div className="all-user-post">
-                                <h3 className="show-user-posts-title">{post.title}</h3>
+                                <h3 className="show-all-posts-title">{post.title}</h3>
                                 <img className="show-all-posts-image" src={`${BASE_URL}/${post.image_path}`} alt={post.title} />
                                 <p className="show-all-posts-like">{post.likes_count} Likes</p>
                             </div>

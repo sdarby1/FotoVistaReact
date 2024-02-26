@@ -11,6 +11,7 @@ type FormValues = {
     profile_image: FileList;
 };
 
+const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/webp'];
 
 
 const EditProfile = () => {
@@ -19,6 +20,15 @@ const EditProfile = () => {
     const [profileImagePreview, setProfileImagePreview] = useState(auth.profile_image || '');
 
     const navigate = useNavigate();
+
+    const [backendError, setBackendError] = useState("");
+
+    const validateFileType = (fileList: FileList) => {
+        if (fileList.length > 0 && !ALLOWED_FILE_TYPES.includes(fileList[0].type)) {
+            return '❌ Nur PNG, JPEG, JPG, GIF und WEBP Dateien sind erlaubt';
+        }
+        return true;
+    };
 
 
     useEffect(() => {
@@ -42,7 +52,12 @@ const EditProfile = () => {
             }
             navigate('/profile', { state: { message: '✅ Profil erfolgreich bearbeitet' } });
         } catch (exception: any) {
-        }
+            const errorResponse = exception.response?.data?.errors?.root;
+           if (errorResponse) {
+            setBackendError(errorResponse[0]) } else  {
+            setBackendError('❌ Ein unbekannter Fehler ist aufgetreten');
+            }
+          }
     };
 
     const handleProfileImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,6 +76,7 @@ const EditProfile = () => {
             )}
 
             <form className="edit-profile-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+            {backendError && <div className="error">{backendError}</div>}
                 <h2>Profil bearbeiten</h2>
                 <div className="form-group">
                     <label htmlFor="username">Nutzername</label>
@@ -75,8 +91,13 @@ const EditProfile = () => {
                 </div>
 
                 <div className="form-group">
-                    <label htmlFor="profileImage">Profilbild</label>
-                    <input type="file" {...register("profile_image")} onChange={handleProfileImageChange} />
+                    <label htmlFor="profile_image">Profilbild</label>
+                    <input type="file" {...register("profile_image", {
+                            validate: {
+                              fileType: validateFileType
+                          }
+                          })} onChange={handleProfileImageChange} />
+                        {errors.profile_image && <p className="error">{errors.profile_image.message}</p>}
                     {profileImagePreview && <img className="image-preview" src={profileImagePreview} alt="Profilvorschau" />}
                 </div>
 

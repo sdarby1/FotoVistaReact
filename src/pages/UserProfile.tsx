@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import http from '../utils/http'; 
 import Masonry from 'react-masonry-css';
 import FollowButton from '../components/FollowButtonComponent';
+import { AuthContext } from '../context/AuthProvider';
 
 interface PostType {
     id: number;
@@ -16,6 +17,7 @@ const UserProfile = () => {
     const [userPosts, setUserPosts] = useState<PostType[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState<{username?: string, profile_image?: string} | null>(null);
+    const { auth } = useContext(AuthContext); 
 
     const BASE_URL = 'http://localhost'; 
 
@@ -70,7 +72,9 @@ const UserProfile = () => {
                     <div className="user-profile-headline-container">
                         <h2 className="user-profile-headline">Profil von</h2>
                         <div className="user-profile-user-container"><img src={`${BASE_URL}/${user?.profile_image}`} alt="Profilbild" className="profile-profile-image" /><h2>{user?.username}</h2></div>
+                        { auth.id ? (
                         <FollowButton profileUserId={userId} />
+                        ) : (null) }
                     </div>
                     <Masonry
                          breakpointCols={breakpointColumnsObj}

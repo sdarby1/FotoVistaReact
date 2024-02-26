@@ -20,7 +20,9 @@ const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif',
 const CreatePost = () => {
   const navigate = useNavigate();
     const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormValues>();
-    const [submitError, setSubmitError] = useState('');
+    const [submitError] = useState('');
+
+    const [backendError, setBackendError] = useState("");
 
     const validateFileSize = (fileList: FileList) => {
         if (fileList.length > 0 && fileList[0].size > MAX_FILE_SIZE) {
@@ -65,10 +67,13 @@ const CreatePost = () => {
 
             const postId = response.data.post.id;
             navigate(`/posts/${postId}`, { state: { message: '✅ Post erfolgreich erstellt' } });
-        } catch (error) {
-            setSubmitError('❌ Fehler beim Erstellen des Posts');
-            console.error(error);
-        }
+            } catch (exception: any) {
+              const errorResponse = exception.response?.data?.errors?.root;
+             if (errorResponse) {
+              setBackendError(errorResponse[0]) } else  {
+              setBackendError('❌ Ein unbekannter Fehler ist aufgetreten');
+              }
+            }
     };
 
     return (
@@ -80,6 +85,7 @@ const CreatePost = () => {
             )}
             
             <form className="create-post-form" onSubmit={handleSubmit(onSubmit)} noValidate>
+            {backendError && <div className="error">{backendError}</div>}
                 <h2>Post erstellen</h2>
                 <div className="post-form-container">
                 <div className="post-infos">
